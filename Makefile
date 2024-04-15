@@ -3,6 +3,7 @@ LOCAL_BIN:=$(CURDIR)/bin
 
 install-deps:
 	GOBIN=$(LOCAL_BIN) go install github.com/pressly/goose/v3/cmd/goose@v3.19.2
+	GOBIN=$(LOCAL_BIN) go install github.com/cosmtrek/air@latest
 
 install-golangci-lint:
 	GOBIN=$(LOCAL_BIN) go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
