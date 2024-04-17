@@ -96,20 +96,20 @@ func (s *serverProvider) DBClient(ctx context.Context) db.Client {
 	return s.dbClient
 }
 
-func (s *serverProvider) Validator(_ context.Context) *validator.Validate {
-	if s.validator == nil {
-		s.validator = validator.New(validator.WithRequiredStructEnabled())
-	}
-
-	return s.validator
-}
-
 func (s *serverProvider) TxManager(ctx context.Context) db.TxManager {
 	if s.txManager == nil {
 		s.txManager = transaction.NewTransactionManager(s.DBClient(ctx).DB())
 	}
 
 	return s.txManager
+}
+
+func (s *serverProvider) Validator(_ context.Context) *validator.Validate {
+	if s.validator == nil {
+		s.validator = validator.New(validator.WithRequiredStructEnabled())
+	}
+
+	return s.validator
 }
 
 func (s *serverProvider) UserRepository(ctx context.Context) repository.UserRepository {
@@ -133,7 +133,10 @@ func (s *serverProvider) UserService(ctx context.Context) service.UserService {
 
 func (s *serverProvider) UserHandler(ctx context.Context) *user.Handler {
 	if s.userHandler == nil {
-		s.userHandler = user.NewHandler(s.UserService(ctx), s.validator)
+		s.userHandler = user.NewHandler(
+			s.UserService(ctx),
+			s.validator,
+		)
 	}
 
 	return s.userHandler

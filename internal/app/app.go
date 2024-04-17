@@ -92,6 +92,7 @@ func (a *App) initRestServer(_ context.Context) error {
 
 func (a *App) initValidator(ctx context.Context) error {
 	a.serverProvider.Validator(ctx)
+
 	return nil
 }
 
