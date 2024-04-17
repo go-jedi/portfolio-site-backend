@@ -8,6 +8,7 @@ import (
 	"github.com/go-jedi/platform_common/pkg/db"
 	"github.com/go-jedi/platform_common/pkg/db/pg"
 	"github.com/go-jedi/platform_common/pkg/db/transaction"
+	"github.com/go-playground/validator/v10"
 
 	"github.com/go-jedi/portfolio/internal/config"
 	"github.com/go-jedi/portfolio/internal/handler/user"
@@ -25,6 +26,8 @@ type serverProvider struct {
 
 	dbClient  db.Client
 	txManager db.TxManager
+
+	validator *validator.Validate
 
 	userRepository repository.UserRepository
 	userService    service.UserService
@@ -93,6 +96,14 @@ func (s *serverProvider) DBClient(ctx context.Context) db.Client {
 	return s.dbClient
 }
 
+func (s *serverProvider) Validator(_ context.Context) *validator.Validate {
+	if s.validator == nil {
+		s.validator = validator.New(validator.WithRequiredStructEnabled())
+	}
+
+	return s.validator
+}
+
 func (s *serverProvider) TxManager(ctx context.Context) db.TxManager {
 	if s.txManager == nil {
 		s.txManager = transaction.NewTransactionManager(s.DBClient(ctx).DB())
@@ -122,7 +133,7 @@ func (s *serverProvider) UserService(ctx context.Context) service.UserService {
 
 func (s *serverProvider) UserHandler(ctx context.Context) *user.Handler {
 	if s.userHandler == nil {
-		s.userHandler = user.NewHandler(s.UserService(ctx))
+		s.userHandler = user.NewHandler(s.UserService(ctx), s.validator)
 	}
 
 	return s.userHandler

@@ -44,6 +44,7 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initServerProvider,
 		a.initLogger,
 		a.initRestServer,
+		a.initValidator,
 		a.initRouter,
 	}
 
@@ -86,6 +87,11 @@ func (a *App) initLogger(_ context.Context) error {
 func (a *App) initRestServer(_ context.Context) error {
 	a.restServer = fiber.New()
 
+	return nil
+}
+
+func (a *App) initValidator(ctx context.Context) error {
+	a.serverProvider.Validator(ctx)
 	return nil
 }
 
