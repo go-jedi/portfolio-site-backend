@@ -1,4 +1,4 @@
-package user
+package review
 
 import (
 	"github.com/go-playground/validator/v10"
@@ -7,16 +7,16 @@ import (
 )
 
 type Handler struct {
-	userService service.UserService
-	validator   *validator.Validate
+	reviewService service.ReviewService
+	validator     *validator.Validate
 }
 
 func NewHandler(
-	userService service.UserService,
+	reviewService service.ReviewService,
 	validator *validator.Validate,
 ) *Handler {
 	return &Handler{
-		userService: userService,
-		validator:   validator,
+		reviewService: reviewService,
+		validator:     validator,
 	}
 }

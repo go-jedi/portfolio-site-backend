@@ -10,7 +10,7 @@ import (
 
 func (s *serv) Get(ctx context.Context, id int64) (string, error) {
 	logger.Info(
-		"(SERVICE) Get...",
+		"(SERVICE USER) Get...",
 		zap.Int64("id", id),
 	)
 

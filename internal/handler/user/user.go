@@ -13,7 +13,7 @@ func (h *Handler) Get(c fiber.Ctx) error {
 	id := 1
 
 	logger.Info(
-		"(HANDLER) Get...",
+		"(HANDLER USER) Get...",
 		zap.Int64("id", int64(id)),
 	)
 

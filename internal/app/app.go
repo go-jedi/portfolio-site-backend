@@ -98,10 +98,17 @@ func (a *App) initValidator(ctx context.Context) error {
 
 func (a *App) initRouter(ctx context.Context) error {
 	// инициализация Handlers
+	projectHandler := a.serverProvider.ProjectHandler(ctx)
+	reviewHandler := a.serverProvider.ReviewHandler(ctx)
 	userHandler := a.serverProvider.UserHandler(ctx)
 
 	// инициализация роутов
-	r := router.NewRouter(a.restServer, userHandler)
+	r := router.NewRouter(
+		a.restServer,
+		projectHandler,
+		reviewHandler,
+		userHandler,
+	)
 	err := r.InitRoutes()
 	if err != nil {
 		return err

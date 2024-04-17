@@ -11,12 +11,11 @@ import (
 	"github.com/go-playground/validator/v10"
 
 	"github.com/go-jedi/portfolio/internal/config"
+	"github.com/go-jedi/portfolio/internal/handler/project"
+	"github.com/go-jedi/portfolio/internal/handler/review"
 	"github.com/go-jedi/portfolio/internal/handler/user"
 	"github.com/go-jedi/portfolio/internal/repository"
 	"github.com/go-jedi/portfolio/internal/service"
-
-	userRepository "github.com/go-jedi/portfolio/internal/repository/user"
-	userService "github.com/go-jedi/portfolio/internal/service/user"
 )
 
 type serverProvider struct {
@@ -28,6 +27,14 @@ type serverProvider struct {
 	txManager db.TxManager
 
 	validator *validator.Validate
+
+	projectRepository repository.ProjectRepository
+	projectService    service.ProjectService
+	projectHandler    *project.Handler
+
+	reviewRepository repository.ReviewRepository
+	reviewService    service.ReviewService
+	reviewHandler    *review.Handler
 
 	userRepository repository.UserRepository
 	userService    service.UserService
@@ -110,34 +117,4 @@ func (s *serverProvider) Validator(_ context.Context) *validator.Validate {
 	}
 
 	return s.validator
-}
-
-func (s *serverProvider) UserRepository(ctx context.Context) repository.UserRepository {
-	if s.userRepository == nil {
-		s.userRepository = userRepository.NewRepository(s.DBClient(ctx))
-	}
-
-	return s.userRepository
-}
-
-func (s *serverProvider) UserService(ctx context.Context) service.UserService {
-	if s.userService == nil {
-		s.userService = userService.NewService(
-			s.UserRepository(ctx),
-			s.TxManager(ctx),
-		)
-	}
-
-	return s.userService
-}
-
-func (s *serverProvider) UserHandler(ctx context.Context) *user.Handler {
-	if s.userHandler == nil {
-		s.userHandler = user.NewHandler(
-			s.UserService(ctx),
-			s.validator,
-		)
-	}
-
-	return s.userHandler
 }
