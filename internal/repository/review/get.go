@@ -23,6 +23,7 @@ func (r *repo) Get(ctx context.Context) ([]review.Review, error) {
 		createdAtColumn,
 		updatedAtColumn,
 	).
+		PlaceholderFormat(sq.Dollar).
 		From(tableName).
 		OrderBy(idColumn)
 
