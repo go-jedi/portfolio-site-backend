@@ -1,13 +1,17 @@
 package service
 
-import "context"
+import (
+	"context"
+
+	"github.com/go-jedi/portfolio/internal/model/review"
+)
 
 type ProjectService interface {
 	Create(ctx context.Context) error
 }
 
 type ReviewService interface {
-	Create(ctx context.Context) error
+	Create(ctx context.Context, dto review.Create) (int, error)
 }
 
 type UserService interface {

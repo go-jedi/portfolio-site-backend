@@ -3,18 +3,19 @@ package review
 import (
 	"context"
 
+	"github.com/go-jedi/portfolio/internal/model/review"
 	"github.com/go-jedi/portfolio/pkg/logger"
 )
 
-func (s *serv) Create(ctx context.Context) error {
+func (s *serv) Create(ctx context.Context, dto review.Create) (int, error) {
 	logger.Info(
 		"(SERVICE REVIEW) Create...",
 	)
 
-	err := s.reviewRepository.Create(ctx)
+	result, err := s.reviewRepository.Create(ctx, dto)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	return nil
+	return result, nil
 }
