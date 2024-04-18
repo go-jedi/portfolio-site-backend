@@ -3,30 +3,20 @@ package review
 import (
 	"context"
 
-	"go.uber.org/zap"
-
 	sq "github.com/Masterminds/squirrel"
 	"github.com/go-jedi/platform_common/pkg/db"
+	"go.uber.org/zap"
 
 	"github.com/go-jedi/portfolio/internal/model/review"
 	"github.com/go-jedi/portfolio/pkg/logger"
-)
-
-const (
-	tableName = "reviews"
-
-	//idColumn        = "id"
-	authorColumn  = "author"
-	messageColumn = "message"
-	ratingColumn  = "rating"
-	//createdAtColumn = "created_at"
-	//updatedAtColumn = "updated_at"
 )
 
 func (r *repo) Create(ctx context.Context, dto review.Create) (int, error) {
 	logger.Info(
 		"(REPOSITORY REVIEW) Create...",
 		zap.String("author", dto.Author),
+		zap.String("message", dto.Message),
+		zap.Int("rating", dto.Rating),
 	)
 
 	builder := sq.Insert(tableName).
