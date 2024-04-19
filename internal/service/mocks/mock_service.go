@@ -8,8 +8,129 @@ import (
 	context "context"
 	reflect "reflect"
 
+	review "github.com/go-jedi/portfolio/internal/model/review"
 	gomock "github.com/golang/mock/gomock"
 )
+
+// MockProjectService is a mock of ProjectService interface.
+type MockProjectService struct {
+	ctrl     *gomock.Controller
+	recorder *MockProjectServiceMockRecorder
+}
+
+// MockProjectServiceMockRecorder is the mock recorder for MockProjectService.
+type MockProjectServiceMockRecorder struct {
+	mock *MockProjectService
+}
+
+// NewMockProjectService creates a new mock instance.
+func NewMockProjectService(ctrl *gomock.Controller) *MockProjectService {
+	mock := &MockProjectService{ctrl: ctrl}
+	mock.recorder = &MockProjectServiceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockProjectService) EXPECT() *MockProjectServiceMockRecorder {
+	return m.recorder
+}
+
+// Create mocks base method.
+func (m *MockProjectService) Create(ctx context.Context) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Create", ctx)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockProjectServiceMockRecorder) Create(ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockProjectService)(nil).Create), ctx)
+}
+
+// MockReviewService is a mock of ReviewService interface.
+type MockReviewService struct {
+	ctrl     *gomock.Controller
+	recorder *MockReviewServiceMockRecorder
+}
+
+// MockReviewServiceMockRecorder is the mock recorder for MockReviewService.
+type MockReviewServiceMockRecorder struct {
+	mock *MockReviewService
+}
+
+// NewMockReviewService creates a new mock instance.
+func NewMockReviewService(ctrl *gomock.Controller) *MockReviewService {
+	mock := &MockReviewService{ctrl: ctrl}
+	mock.recorder = &MockReviewServiceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockReviewService) EXPECT() *MockReviewServiceMockRecorder {
+	return m.recorder
+}
+
+// Create mocks base method.
+func (m *MockReviewService) Create(ctx context.Context, dto review.Create) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Create", ctx, dto)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockReviewServiceMockRecorder) Create(ctx, dto interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockReviewService)(nil).Create), ctx, dto)
+}
+
+// Delete mocks base method.
+func (m *MockReviewService) Delete(ctx context.Context, id int) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Delete", ctx, id)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Delete indicates an expected call of Delete.
+func (mr *MockReviewServiceMockRecorder) Delete(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockReviewService)(nil).Delete), ctx, id)
+}
+
+// Get mocks base method.
+func (m *MockReviewService) Get(ctx context.Context) ([]review.Review, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Get", ctx)
+	ret0, _ := ret[0].([]review.Review)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Get indicates an expected call of Get.
+func (mr *MockReviewServiceMockRecorder) Get(ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockReviewService)(nil).Get), ctx)
+}
+
+// GetByID mocks base method.
+func (m *MockReviewService) GetByID(ctx context.Context, id int) (review.Review, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByID", ctx, id)
+	ret0, _ := ret[0].(review.Review)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByID indicates an expected call of GetByID.
+func (mr *MockReviewServiceMockRecorder) GetByID(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockReviewService)(nil).GetByID), ctx, id)
+}
 
 // MockUserService is a mock of UserService interface.
 type MockUserService struct {
