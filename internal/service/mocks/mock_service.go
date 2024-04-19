@@ -103,18 +103,18 @@ func (mr *MockReviewServiceMockRecorder) Delete(ctx, id interface{}) *gomock.Cal
 }
 
 // Get mocks base method.
-func (m *MockReviewService) Get(ctx context.Context) ([]review.Review, error) {
+func (m *MockReviewService) Get(ctx context.Context, page, limit int) ([]review.Review, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Get", ctx)
+	ret := m.ctrl.Call(m, "Get", ctx, page, limit)
 	ret0, _ := ret[0].([]review.Review)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Get indicates an expected call of Get.
-func (mr *MockReviewServiceMockRecorder) Get(ctx interface{}) *gomock.Call {
+func (mr *MockReviewServiceMockRecorder) Get(ctx, page, limit interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockReviewService)(nil).Get), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockReviewService)(nil).Get), ctx, page, limit)
 }
 
 // GetByID mocks base method.
