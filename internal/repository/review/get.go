@@ -3,6 +3,8 @@ package review
 import (
 	"context"
 
+	"go.uber.org/zap"
+
 	sq "github.com/Masterminds/squirrel"
 	"github.com/go-jedi/platform_common/pkg/db"
 
@@ -10,9 +12,11 @@ import (
 	"github.com/go-jedi/portfolio/pkg/logger"
 )
 
-func (r *repo) Get(ctx context.Context) ([]review.Review, error) {
+func (r *repo) Get(ctx context.Context, page int, limit int) ([]review.Review, error) {
 	logger.Info(
 		"(REPOSITORY REVIEW) Get...",
+		zap.Int("page", page),
+		zap.Int("limit", limit),
 	)
 
 	builder := sq.Select(
@@ -26,7 +30,9 @@ func (r *repo) Get(ctx context.Context) ([]review.Review, error) {
 		PlaceholderFormat(sq.Dollar).
 		From(tableName).
 		Where(sq.Eq{deletedColumn: false}).
-		OrderBy(idColumn)
+		OrderBy(idColumn).
+		Offset(uint64(limit * (page - 1))).
+		Limit(uint64(limit))
 
 	query, args, err := builder.ToSql()
 	if err != nil {
