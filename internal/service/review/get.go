@@ -14,7 +14,7 @@ func (s *serv) Get(ctx context.Context) ([]review.Review, error) {
 
 	result, err := s.reviewRepository.Get(ctx)
 	if err != nil {
-		return []review.Review{}, err
+		return nil, err
 	}
 
 	return result, nil

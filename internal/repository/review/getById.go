@@ -28,7 +28,12 @@ func (r *repo) GetByID(ctx context.Context, id int) (review.Review, error) {
 	).
 		PlaceholderFormat(sq.Dollar).
 		From(tableName).
-		Where(sq.Eq{idColumn: id})
+		Where(
+			sq.And{
+				sq.Eq{idColumn: id},
+				sq.Eq{deletedColumn: false},
+			},
+		)
 
 	query, args, err := builder.ToSql()
 	if err != nil {

@@ -25,11 +25,12 @@ func (r *repo) Get(ctx context.Context) ([]review.Review, error) {
 	).
 		PlaceholderFormat(sq.Dollar).
 		From(tableName).
+		Where(sq.Eq{deletedColumn: false}).
 		OrderBy(idColumn)
 
 	query, args, err := builder.ToSql()
 	if err != nil {
-		return []review.Review{}, err
+		return nil, err
 	}
 
 	q := db.Query{
@@ -40,7 +41,7 @@ func (r *repo) Get(ctx context.Context) ([]review.Review, error) {
 	var reviews []review.Review
 	rows, err := r.db.DB().QueryContext(ctx, q, args...)
 	if err != nil {
-		return []review.Review{}, err
+		return nil, err
 	}
 
 	for rows.Next() {
@@ -48,7 +49,7 @@ func (r *repo) Get(ctx context.Context) ([]review.Review, error) {
 
 		err := rows.Scan(&r.ID, &r.Author, &r.Message, &r.Rating, &r.CreatedAt, &r.UpdatedAt)
 		if err != nil {
-			return []review.Review{}, err
+			return nil, err
 		}
 
 		reviews = append(reviews, r)

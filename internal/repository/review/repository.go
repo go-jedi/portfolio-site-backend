@@ -13,6 +13,7 @@ const (
 	authorColumn    = "author"
 	messageColumn   = "message"
 	ratingColumn    = "rating"
+	deletedColumn   = "deleted"
 	createdAtColumn = "created_at"
 	updatedAtColumn = "updated_at"
 )
