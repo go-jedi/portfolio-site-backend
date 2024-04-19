@@ -1,10 +1,10 @@
 package router
 
 import (
-	"github.com/go-jedi/portfolio/internal/handler/review"
 	"github.com/gofiber/fiber/v3"
 
 	"github.com/go-jedi/portfolio/internal/handler/project"
+	"github.com/go-jedi/portfolio/internal/handler/review"
 	"github.com/go-jedi/portfolio/internal/handler/user"
 )
 

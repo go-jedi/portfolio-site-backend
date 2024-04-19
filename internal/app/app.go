@@ -45,6 +45,7 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initLogger,
 		a.initRestServer,
 		a.initValidator,
+		a.initFileServer,
 		a.initRouter,
 	}
 
@@ -92,6 +93,14 @@ func (a *App) initRestServer(_ context.Context) error {
 
 func (a *App) initValidator(ctx context.Context) error {
 	a.serverProvider.Validator(ctx)
+
+	return nil
+}
+
+func (a *App) initFileServer(_ context.Context) error {
+	a.restServer.Static("/file-server", "fileServer", fiber.Static{
+		ByteRange: true,
+	})
 
 	return nil
 }
