@@ -19,9 +19,10 @@ import (
 )
 
 type serverProvider struct {
-	loggerConfig config.LoggerConfig
-	pgConfig     config.PGConfig
-	restConfig   config.RESTConfig
+	loggerConfig     config.LoggerConfig
+	pgConfig         config.PGConfig
+	fileServerConfig config.FileServerConfig
+	restConfig       config.RESTConfig
 
 	dbClient  db.Client
 	txManager db.TxManager
@@ -69,6 +70,19 @@ func (s *serverProvider) PGConfig() config.PGConfig {
 	}
 
 	return s.pgConfig
+}
+
+func (s *serverProvider) FileServerConfig() config.FileServerConfig {
+	if s.fileServerConfig == nil {
+		cfg, err := config.NewFileServerConfig()
+		if err != nil {
+			log.Fatalf("failed to get file server config: %s", err.Error())
+		}
+
+		s.fileServerConfig = cfg
+	}
+
+	return s.fileServerConfig
 }
 
 func (s *serverProvider) RESTConfig() config.RESTConfig {

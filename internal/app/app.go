@@ -98,9 +98,16 @@ func (a *App) initValidator(ctx context.Context) error {
 }
 
 func (a *App) initFileServer(_ context.Context) error {
-	a.restServer.Static("/file-server", "fileServer", fiber.Static{
-		ByteRange: true,
-	})
+	fileServerDir := a.serverProvider.FileServerConfig().FileServerDir()
+	fileServerPrefix := a.serverProvider.FileServerConfig().FileServerPrefix()
+
+	a.restServer.Static(
+		fmt.Sprintf("/%s", fileServerPrefix),
+		fileServerDir,
+		fiber.Static{
+			ByteRange: true,
+		},
+	)
 
 	return nil
 }
