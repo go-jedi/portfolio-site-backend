@@ -106,7 +106,6 @@ func (s *serv) Create(ctx context.Context, dto project.Create, files []*multipar
 		if err != nil {
 			return err
 		}
-		fmt.Println("result:", result)
 
 		// сохранить данные в таблицу images
 		err = s.imageRepository.Create(ctx, result, paths)
