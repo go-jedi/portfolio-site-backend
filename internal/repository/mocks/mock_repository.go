@@ -66,6 +66,21 @@ func (mr *MockProjectRepositoryMockRecorder) Get(ctx, page, limit interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockProjectRepository)(nil).Get), ctx, page, limit)
 }
 
+// GetByID mocks base method.
+func (m *MockProjectRepository) GetByID(ctx context.Context, id int) (project.Get, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByID", ctx, id)
+	ret0, _ := ret[0].(project.Get)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByID indicates an expected call of GetByID.
+func (mr *MockProjectRepositoryMockRecorder) GetByID(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockProjectRepository)(nil).GetByID), ctx, id)
+}
+
 // MockImageRepository is a mock of ImageRepository interface.
 type MockImageRepository struct {
 	ctrl     *gomock.Controller

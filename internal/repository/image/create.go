@@ -3,9 +3,10 @@ package image
 import (
 	"context"
 
+	"go.uber.org/zap"
+
 	sq "github.com/Masterminds/squirrel"
 	"github.com/go-jedi/platform_common/pkg/db"
-	"go.uber.org/zap"
 
 	"github.com/go-jedi/portfolio/pkg/logger"
 )
