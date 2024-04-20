@@ -1,2 +1,173 @@
-# go-rest-fiber-clean-architecture
-# portfolio-site-backend
+## Getting Started
+
+```bash
+Запуск проекта в Docker: gRPC server + postgres + migrations:
+1) make install-deps
+2) make install-golangci-lint
+3) make mock-generate
+
+4) .env:
+POSTGRES_DB=rest
+POSTGRES_USER=rest-user
+POSTGRES_PASSWORD=rest-password
+POSTGRES_PORT=54321
+MIGRATION_DIR=./migrations
+
+PG_DSN="host=pg port=5432 dbname=rest user=rest-user password=rest-password sslmode=disable"
+PG_DOCKER_DSN="host=localhost port=54321 dbname=rest user=rest-user password=rest-password sslmode=disable"
+
+LOG_LEVEL=INFO
+
+SERVICE_NAME=rest-server
+
+REST_HOST=rest
+REST_PORT=50051
+
+5) Dockerfile:
+FROM golang:1.22.0-alpine AS builder
+
+WORKDIR /github.com/go-jedi/go-rest-clean-architecture/app/
+COPY . /github.com/go-jedi/go-rest-clean-architecture/app/
+
+RUN go mod download
+RUN go build -o .bin/rest_server cmd/rest_server/main.go
+
+FROM alpine:latest
+
+WORKDIR /root/
+COPY --from=builder /github.com/go-jedi/go-rest-clean-architecture/app/.bin/rest_server .
+COPY .env /root/
+
+CMD ["./rest_server"]
+
+6) docker-compose.yaml:
+version: '3'
+
+volumes:
+  postgres_volume:
+
+services:
+  note:
+    build: .
+    restart: always
+    ports:
+      - '50051:50051'
+
+  pg:
+    image: postgres:16-alpine3.19
+    environment:
+      - "POSTGRES_DB=${POSTGRES_DB}"
+      - "POSTGRES_USER=${POSTGRES_USER}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+
+  migrator:
+    build:
+      context: .
+      dockerfile: migration.Dockerfile
+    restart: on-failure
+    environment:
+      DB_HOST: pg
+
+7) docker compose up -d
+```
+
+```bash
+Запуск проекта локально в Docker: postgres + migrations:
+1) make install-deps
+2) make install-golangci-lint
+3) make mock-generate
+
+4) .env:
+POSTGRES_DB=rest
+POSTGRES_USER=rest-user
+POSTGRES_PASSWORD=rest-password
+POSTGRES_PORT=54321
+MIGRATION_DIR=./migrations
+
+PG_DSN="host=localhost port=54321 dbname=rest user=rest-user password=rest-password sslmode=disable"
+PG_DOCKER_DSN="host=localhost port=54321 dbname=rest user=rest-user password=rest-password sslmode=disable"
+
+LOG_LEVEL=INFO
+
+SERVICE_NAME=rest-server
+
+GRPC_HOST=localhost
+GRPC_PORT=50051
+
+5) docker-compose.yaml:
+version: '3'
+
+volumes:
+  postgres_volume:
+
+services:
+  pg:
+    image: postgres:16-alpine3.19
+    environment:
+      - "POSTGRES_DB=${POSTGRES_DB}"
+      - "POSTGRES_USER=${POSTGRES_USER}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+
+  migrator:
+    build:
+      context: .
+      dockerfile: migration.Dockerfile
+    restart: on-failure
+    environment:
+      DB_HOST: pg
+
+6) docker compose up -d
+7) go run cmd/rest_server/main.go
+# or
+7) make run-air
+```
+
+```bash
+Запустить проект с горячей перезагрузкой (air)
+
+air --build.cmd "go build -o .bin/air cmd/rest_server/main.go" --build.bin "./.bin/air"
+#or
+make run-air
+```
+
+```bash
+Линтер:
+
+make install-golangci-lint
+make lint
+```
+
+```bash
+Моки:
+make mock-generate
+```
+
+```bash
+Тестирование:
+
+go test ./...
+go test -bench=. ./...
+make test-coverage
+```
+
+```bash
+Миграции:
+
+Локально:
+make local-migration-status
+make local-migration-up
+make local-migration-down
+
+В Docker:
+make docker-migration-status
+make docker-migration-up
+make docker-migration-down
+```
