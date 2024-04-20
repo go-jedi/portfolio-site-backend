@@ -23,6 +23,7 @@ func (s *serverProvider) ProjectService(ctx context.Context) service.ProjectServ
 	if s.projectService == nil {
 		s.projectService = projectService.NewService(
 			s.ProjectRepository(ctx),
+			s.ImageRepository(ctx),
 			s.TxManager(ctx),
 		)
 	}

@@ -6,6 +6,17 @@ import (
 	"github.com/go-jedi/portfolio/internal/repository"
 )
 
+const (
+	tableName = "projects"
+
+	//idColumn          = "id"
+	titleColumn       = "title"
+	descriptionColumn = "description"
+	technologyColumn  = "technology"
+	//createdAtColumn   = "created_at"
+	//updatedAtColumn   = "updated_at"
+)
+
 type repo struct {
 	db db.Client
 }

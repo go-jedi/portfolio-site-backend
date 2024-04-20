@@ -9,15 +9,18 @@ import (
 
 type serv struct {
 	projectRepository repository.ProjectRepository
+	imageRepository   repository.ImageRepository
 	txManager         db.TxManager
 }
 
 func NewService(
 	projectRepository repository.ProjectRepository,
+	imageRepository repository.ImageRepository,
 	txManager db.TxManager,
 ) service.ProjectService {
 	return &serv{
 		projectRepository: projectRepository,
+		imageRepository:   imageRepository,
 		txManager:         txManager,
 	}
 }

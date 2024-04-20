@@ -2,12 +2,14 @@ package service
 
 import (
 	"context"
+	"mime/multipart"
 
+	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/internal/model/review"
 )
 
 type ProjectService interface {
-	Create(ctx context.Context) error
+	Create(ctx context.Context, dto project.Create, files []*multipart.FileHeader) error
 }
 
 type ReviewService interface {

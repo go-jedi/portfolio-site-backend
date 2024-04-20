@@ -3,11 +3,16 @@ package repository
 import (
 	"context"
 
+	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/internal/model/review"
 )
 
 type ProjectRepository interface {
-	Create(ctx context.Context) error
+	Create(ctx context.Context, dto project.Create) (int, error)
+}
+
+type ImageRepository interface {
+	Create(ctx context.Context, id int, paths []string) error
 }
 
 type ReviewRepository interface {

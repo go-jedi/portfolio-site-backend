@@ -33,6 +33,8 @@ type serverProvider struct {
 	projectService    service.ProjectService
 	projectHandler    *project.Handler
 
+	imageRepository repository.ImageRepository
+
 	reviewRepository repository.ReviewRepository
 	reviewService    service.ReviewService
 	reviewHandler    *review.Handler
