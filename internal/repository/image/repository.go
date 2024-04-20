@@ -8,9 +8,10 @@ import (
 const (
 	tableName = "images"
 
-	//idColumn        = "id"
-	projectIdColumn = "project_id"
+	idColumn        = "id"
+	projectIDColumn = "project_id"
 	pathFileColumn  = "path_file"
+	deletedColumn   = "deleted"
 	//createdAtColumn = "created_at"
 	//updatedAtColumn = "updated_at"
 )

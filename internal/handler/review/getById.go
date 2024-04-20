@@ -8,7 +8,7 @@ import (
 	"github.com/go-jedi/portfolio/pkg/logger"
 )
 
-func (h *Handler) GetById(c fiber.Ctx) error {
+func (h *Handler) GetByID(c fiber.Ctx) error {
 	logger.Info(
 		"(HANDLER REVIEW) GetById...",
 	)

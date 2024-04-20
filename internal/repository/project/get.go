@@ -19,13 +19,14 @@ func (r *repo) Get(ctx context.Context, page int, limit int) ([]project.Get, err
 		zap.Int("limit", limit),
 	)
 
-	queryPaths := `
+	const queryPaths = `
 		COALESCE((
 			SELECT json_agg(ag.*)::JSONB
 			FROM (
 				SELECT id, project_id, path_file, created_at, updated_at
 				FROM images
 				WHERE project_id = projects.id
+				AND deleted = FALSE
 			) ag
 		), '[]') as paths
 	`

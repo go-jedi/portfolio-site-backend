@@ -32,7 +32,7 @@ func saveFile(fileHeader *multipart.FileHeader) (string, error) {
 	// проверяем создана ли папка для хранения файлов
 	isExistDir := dir.CheckExistDir(fileServerDir)
 	if !isExistDir {
-		err := dir.CreateDir(fileServerDir)
+		err = dir.CreateDir(fileServerDir)
 		if err != nil {
 			return "", err
 		}

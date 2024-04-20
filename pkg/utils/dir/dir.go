@@ -6,9 +6,9 @@ import "os"
 func CheckExistDir(path string) bool {
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
 		return true
-	} else {
-		return false
 	}
+
+	return false
 }
 
 func ReadDir(path string) ([]os.DirEntry, error) {

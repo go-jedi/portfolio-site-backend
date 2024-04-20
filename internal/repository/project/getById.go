@@ -25,6 +25,7 @@ func (r *repo) GetByID(ctx context.Context, id int) (project.Get, error) {
 				SELECT id, project_id, path_file, created_at, updated_at
 				FROM images
 				WHERE project_id = projects.id
+				AND deleted = FALSE
 			) ag
 		), '[]') as paths
 	`

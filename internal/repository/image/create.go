@@ -20,7 +20,7 @@ func (r *repo) Create(ctx context.Context, id int, paths []string) error {
 
 	builder := sq.Insert(tableName).
 		PlaceholderFormat(sq.Dollar).
-		Columns(projectIdColumn, pathFileColumn)
+		Columns(projectIDColumn, pathFileColumn)
 
 	for _, path := range paths {
 		builder = builder.Values(id, path)

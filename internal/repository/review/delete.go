@@ -38,11 +38,11 @@ func (r *repo) Delete(ctx context.Context, id int) (int, error) {
 		QueryRaw: query,
 	}
 
-	var deletedId int
-	err = r.db.DB().QueryRowContext(ctx, q, args...).Scan(&deletedId)
+	var deletedID int
+	err = r.db.DB().QueryRowContext(ctx, q, args...).Scan(&deletedID)
 	if err != nil {
 		return 0, err
 	}
 
-	return deletedId, nil
+	return deletedID, nil
 }
