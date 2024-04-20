@@ -8,6 +8,7 @@ import (
 	context "context"
 	reflect "reflect"
 
+	project "github.com/go-jedi/portfolio/internal/model/project"
 	review "github.com/go-jedi/portfolio/internal/model/review"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -36,17 +37,70 @@ func (m *MockProjectRepository) EXPECT() *MockProjectRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockProjectRepository) Create(ctx context.Context) error {
+func (m *MockProjectRepository) Create(ctx context.Context, dto project.Create) (int, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Create", ctx)
+	ret := m.ctrl.Call(m, "Create", ctx, dto)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockProjectRepositoryMockRecorder) Create(ctx, dto interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockProjectRepository)(nil).Create), ctx, dto)
+}
+
+// Get mocks base method.
+func (m *MockProjectRepository) Get(ctx context.Context, page, limit int) ([]project.Get, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Get", ctx, page, limit)
+	ret0, _ := ret[0].([]project.Get)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Get indicates an expected call of Get.
+func (mr *MockProjectRepositoryMockRecorder) Get(ctx, page, limit interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockProjectRepository)(nil).Get), ctx, page, limit)
+}
+
+// MockImageRepository is a mock of ImageRepository interface.
+type MockImageRepository struct {
+	ctrl     *gomock.Controller
+	recorder *MockImageRepositoryMockRecorder
+}
+
+// MockImageRepositoryMockRecorder is the mock recorder for MockImageRepository.
+type MockImageRepositoryMockRecorder struct {
+	mock *MockImageRepository
+}
+
+// NewMockImageRepository creates a new mock instance.
+func NewMockImageRepository(ctrl *gomock.Controller) *MockImageRepository {
+	mock := &MockImageRepository{ctrl: ctrl}
+	mock.recorder = &MockImageRepositoryMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockImageRepository) EXPECT() *MockImageRepositoryMockRecorder {
+	return m.recorder
+}
+
+// Create mocks base method.
+func (m *MockImageRepository) Create(ctx context.Context, id int, paths []string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Create", ctx, id, paths)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Create indicates an expected call of Create.
-func (mr *MockProjectRepositoryMockRecorder) Create(ctx interface{}) *gomock.Call {
+func (mr *MockImageRepositoryMockRecorder) Create(ctx, id, paths interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockProjectRepository)(nil).Create), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockImageRepository)(nil).Create), ctx, id, paths)
 }
 
 // MockReviewRepository is a mock of ReviewRepository interface.

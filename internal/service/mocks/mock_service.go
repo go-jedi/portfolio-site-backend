@@ -6,8 +6,10 @@ package mock_service
 
 import (
 	context "context"
+	multipart "mime/multipart"
 	reflect "reflect"
 
+	project "github.com/go-jedi/portfolio/internal/model/project"
 	review "github.com/go-jedi/portfolio/internal/model/review"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -36,17 +38,32 @@ func (m *MockProjectService) EXPECT() *MockProjectServiceMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockProjectService) Create(ctx context.Context) error {
+func (m *MockProjectService) Create(ctx context.Context, dto project.Create, files []*multipart.FileHeader) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Create", ctx)
+	ret := m.ctrl.Call(m, "Create", ctx, dto, files)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Create indicates an expected call of Create.
-func (mr *MockProjectServiceMockRecorder) Create(ctx interface{}) *gomock.Call {
+func (mr *MockProjectServiceMockRecorder) Create(ctx, dto, files interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockProjectService)(nil).Create), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockProjectService)(nil).Create), ctx, dto, files)
+}
+
+// Get mocks base method.
+func (m *MockProjectService) Get(ctx context.Context, page, limit int) ([]project.Get, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Get", ctx, page, limit)
+	ret0, _ := ret[0].([]project.Get)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Get indicates an expected call of Get.
+func (mr *MockProjectServiceMockRecorder) Get(ctx, page, limit interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockProjectService)(nil).Get), ctx, page, limit)
 }
 
 // MockReviewService is a mock of ReviewService interface.
