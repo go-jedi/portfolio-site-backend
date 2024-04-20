@@ -9,12 +9,13 @@ import (
 const (
 	tableName = "projects"
 
-	//idColumn          = "id"
+	idColumn          = "id"
 	titleColumn       = "title"
 	descriptionColumn = "description"
 	technologyColumn  = "technology"
-	//createdAtColumn   = "created_at"
-	//updatedAtColumn   = "updated_at"
+	deletedColumn     = "deleted"
+	createdAtColumn   = "created_at"
+	updatedAtColumn   = "updated_at"
 )
 
 type repo struct {

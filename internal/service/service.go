@@ -10,6 +10,7 @@ import (
 
 type ProjectService interface {
 	Create(ctx context.Context, dto project.Create, files []*multipart.FileHeader) error
+	Get(ctx context.Context, page int, limit int) ([]project.Get, error)
 }
 
 type ReviewService interface {
