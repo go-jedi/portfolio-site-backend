@@ -18,7 +18,7 @@ func (r *repo) GetByID(ctx context.Context, id int) (project.Get, error) {
 		zap.Int("id", id),
 	)
 
-	queryPaths := `
+	const queryPaths = `
 		COALESCE((
 			SELECT json_agg(ag.*)::JSONB
 			FROM (
