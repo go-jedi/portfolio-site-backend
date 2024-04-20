@@ -81,6 +81,44 @@ func (mr *MockProjectServiceMockRecorder) GetByID(ctx, id interface{}) *gomock.C
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockProjectService)(nil).GetByID), ctx, id)
 }
 
+// MockImageService is a mock of ImageService interface.
+type MockImageService struct {
+	ctrl     *gomock.Controller
+	recorder *MockImageServiceMockRecorder
+}
+
+// MockImageServiceMockRecorder is the mock recorder for MockImageService.
+type MockImageServiceMockRecorder struct {
+	mock *MockImageService
+}
+
+// NewMockImageService creates a new mock instance.
+func NewMockImageService(ctrl *gomock.Controller) *MockImageService {
+	mock := &MockImageService{ctrl: ctrl}
+	mock.recorder = &MockImageServiceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockImageService) EXPECT() *MockImageServiceMockRecorder {
+	return m.recorder
+}
+
+// Delete mocks base method.
+func (m *MockImageService) Delete(ctx context.Context, id int) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Delete", ctx, id)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Delete indicates an expected call of Delete.
+func (mr *MockImageServiceMockRecorder) Delete(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockImageService)(nil).Delete), ctx, id)
+}
+
 // MockReviewService is a mock of ReviewService interface.
 type MockReviewService struct {
 	ctrl     *gomock.Controller

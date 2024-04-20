@@ -118,6 +118,21 @@ func (mr *MockImageRepositoryMockRecorder) Create(ctx, id, paths interface{}) *g
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockImageRepository)(nil).Create), ctx, id, paths)
 }
 
+// Delete mocks base method.
+func (m *MockImageRepository) Delete(ctx context.Context, id int) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Delete", ctx, id)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Delete indicates an expected call of Delete.
+func (mr *MockImageRepositoryMockRecorder) Delete(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockImageRepository)(nil).Delete), ctx, id)
+}
+
 // MockReviewRepository is a mock of ReviewRepository interface.
 type MockReviewRepository struct {
 	ctrl     *gomock.Controller
