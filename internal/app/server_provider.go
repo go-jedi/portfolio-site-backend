@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 
+	"github.com/go-jedi/portfolio/internal/handler/image"
+
 	"github.com/go-jedi/platform_common/pkg/closer"
 	"github.com/go-jedi/platform_common/pkg/db"
 	"github.com/go-jedi/platform_common/pkg/db/pg"
@@ -34,6 +36,8 @@ type serverProvider struct {
 	projectHandler    *project.Handler
 
 	imageRepository repository.ImageRepository
+	imageService    service.ImageService
+	imageHandler    *image.Handler
 
 	reviewRepository repository.ReviewRepository
 	reviewService    service.ReviewService

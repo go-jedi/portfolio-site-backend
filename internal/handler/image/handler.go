@@ -1,4 +1,4 @@
-package project
+package image
 
 import (
 	"github.com/go-playground/validator/v10"
@@ -7,16 +7,16 @@ import (
 )
 
 type Handler struct {
-	projectService service.ProjectService
-	validator      *validator.Validate
+	imageService service.ImageService
+	validator    *validator.Validate
 }
 
 func NewHandler(
-	projectService service.ProjectService,
+	imageService service.ImageService,
 	validator *validator.Validate,
 ) *Handler {
 	return &Handler{
-		projectService: projectService,
-		validator:      validator,
+		imageService: imageService,
+		validator:    validator,
 	}
 }

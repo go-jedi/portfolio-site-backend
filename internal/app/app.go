@@ -115,6 +115,7 @@ func (a *App) initFileServer(_ context.Context) error {
 func (a *App) initRouter(ctx context.Context) error {
 	// инициализация Handlers
 	projectHandler := a.serverProvider.ProjectHandler(ctx)
+	imageHandler := a.serverProvider.ImageHandler(ctx)
 	reviewHandler := a.serverProvider.ReviewHandler(ctx)
 	userHandler := a.serverProvider.UserHandler(ctx)
 
@@ -122,6 +123,7 @@ func (a *App) initRouter(ctx context.Context) error {
 	r := router.NewRouter(
 		a.restServer,
 		projectHandler,
+		imageHandler,
 		reviewHandler,
 		userHandler,
 	)

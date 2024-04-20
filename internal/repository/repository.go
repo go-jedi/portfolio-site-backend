@@ -15,6 +15,7 @@ type ProjectRepository interface {
 
 type ImageRepository interface {
 	Create(ctx context.Context, id int, paths []string) error
+	Delete(ctx context.Context, id int) (int, error)
 }
 
 type ReviewRepository interface {
