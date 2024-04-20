@@ -8,7 +8,6 @@ import (
 	"mime/multipart"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/pkg/logger"
@@ -91,7 +90,6 @@ func (s *serv) Create(ctx context.Context, dto project.Create, files []*multipar
 	)
 
 	err := s.txManager.ReadCommitted(ctx, func(ctx context.Context) error {
-		now := time.Now()
 		// Загрузить фотографию(и) в директорию
 		paths := make([]string, 0, len(files))
 
@@ -115,8 +113,6 @@ func (s *serv) Create(ctx context.Context, dto project.Create, files []*multipar
 		if err != nil {
 			return err
 		}
-
-		fmt.Println("time since:", time.Since(now))
 
 		return nil
 	})
