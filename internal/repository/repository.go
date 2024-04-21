@@ -11,6 +11,7 @@ type ProjectRepository interface {
 	Create(ctx context.Context, dto project.Create) (int, error)
 	Get(ctx context.Context, page int, limit int) ([]project.Get, error)
 	GetByID(ctx context.Context, id int) (project.Get, error)
+	Update(ctx context.Context, dto project.Update) (int, error)
 	Delete(ctx context.Context, id int) (int, error)
 }
 

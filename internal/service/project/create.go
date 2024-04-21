@@ -9,6 +9,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"go.uber.org/zap"
+
 	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/pkg/logger"
 	"github.com/go-jedi/portfolio/pkg/utils/dir"
@@ -87,6 +89,9 @@ func saveFile(fileHeader *multipart.FileHeader) (string, error) {
 func (s *serv) Create(ctx context.Context, dto project.Create, files []*multipart.FileHeader) error {
 	logger.Info(
 		"(SERVICE PROJECT) Create...",
+		zap.String("title", dto.Title),
+		zap.String("description", dto.Description),
+		zap.String("technology", dto.Technology),
 	)
 
 	err := s.txManager.ReadCommitted(ctx, func(ctx context.Context) error {

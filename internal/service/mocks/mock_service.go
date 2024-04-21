@@ -96,6 +96,21 @@ func (mr *MockProjectServiceMockRecorder) GetByID(ctx, id interface{}) *gomock.C
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockProjectService)(nil).GetByID), ctx, id)
 }
 
+// Update mocks base method.
+func (m *MockProjectService) Update(ctx context.Context, dto project.Update) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Update", ctx, dto)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Update indicates an expected call of Update.
+func (mr *MockProjectServiceMockRecorder) Update(ctx, dto interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockProjectService)(nil).Update), ctx, dto)
+}
+
 // MockImageService is a mock of ImageService interface.
 type MockImageService struct {
 	ctrl     *gomock.Controller
