@@ -13,7 +13,7 @@ const (
 	pathFileColumn  = "path_file"
 	deletedColumn   = "deleted"
 	//createdAtColumn = "created_at"
-	//updatedAtColumn = "updated_at"
+	updatedAtColumn = "updated_at"
 )
 
 type repo struct {

@@ -20,6 +20,7 @@ func (r *repo) Delete(ctx context.Context, id int) (int, error) {
 	builder := sq.Update(tableName).
 		PlaceholderFormat(sq.Dollar).
 		Set(deletedColumn, true).
+		Set(updatedAtColumn, "NOW()").
 		Where(
 			sq.And{
 				sq.Eq{idColumn: id},
