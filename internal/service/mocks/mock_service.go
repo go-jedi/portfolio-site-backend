@@ -51,6 +51,21 @@ func (mr *MockProjectServiceMockRecorder) Create(ctx, dto, files interface{}) *g
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockProjectService)(nil).Create), ctx, dto, files)
 }
 
+// Delete mocks base method.
+func (m *MockProjectService) Delete(ctx context.Context, id int) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Delete", ctx, id)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Delete indicates an expected call of Delete.
+func (mr *MockProjectServiceMockRecorder) Delete(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockProjectService)(nil).Delete), ctx, id)
+}
+
 // Get mocks base method.
 func (m *MockProjectService) Get(ctx context.Context, page, limit int) ([]project.Get, error) {
 	m.ctrl.T.Helper()
