@@ -24,6 +24,7 @@ type serverProvider struct {
 	loggerConfig     config.LoggerConfig
 	pgConfig         config.PGConfig
 	fileServerConfig config.FileServerConfig
+	corsConfig       config.CORSConfig
 	restConfig       config.RESTConfig
 
 	dbClient  db.Client
@@ -89,6 +90,19 @@ func (s *serverProvider) FileServerConfig() config.FileServerConfig {
 	}
 
 	return s.fileServerConfig
+}
+
+func (s *serverProvider) CORSConfig() config.CORSConfig {
+	if s.corsConfig == nil {
+		cfg, err := config.NewCORSConfig()
+		if err != nil {
+			log.Fatalf("failed to get cors config: %s", err.Error())
+		}
+
+		s.corsConfig = cfg
+	}
+
+	return s.corsConfig
 }
 
 func (s *serverProvider) RESTConfig() config.RESTConfig {

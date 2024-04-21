@@ -7,6 +7,7 @@ import (
 
 	"github.com/go-jedi/platform_common/pkg/closer"
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 
 	"github.com/go-jedi/portfolio/internal/config"
 	"github.com/go-jedi/portfolio/internal/router"
@@ -46,6 +47,7 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initRestServer,
 		a.initValidator,
 		a.initFileServer,
+		a.initCors,
 		a.initRouter,
 	}
 
@@ -108,6 +110,25 @@ func (a *App) initFileServer(_ context.Context) error {
 			ByteRange: true,
 		},
 	)
+
+	return nil
+}
+
+func (a *App) initCors(_ context.Context) error {
+	// Инициализация CORS
+	corsOrigin := a.serverProvider.CORSConfig().ORIGIN()
+	corsMethod := a.serverProvider.CORSConfig().METHOD()
+	corsHeader := a.serverProvider.CORSConfig().HEADER()
+	corsCredential := a.serverProvider.CORSConfig().CREDENTIAL()
+	corsMaxAge := a.serverProvider.CORSConfig().MAXAGE()
+
+	a.restServer.Use(cors.New(cors.Config{
+		AllowOrigins:     corsOrigin,
+		AllowMethods:     corsMethod,
+		AllowHeaders:     corsHeader,
+		AllowCredentials: corsCredential,
+		MaxAge:           corsMaxAge,
+	}))
 
 	return nil
 }
