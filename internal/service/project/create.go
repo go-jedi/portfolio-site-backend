@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 
 	"github.com/go-jedi/portfolio/internal/model/project"
@@ -17,7 +18,7 @@ import (
 )
 
 func saveFile(fileHeader *multipart.FileHeader) (string, error) {
-	path := ""
+	filename := ""
 
 	// читаем путь до папки хранения файлов
 	fileServerDir := os.Getenv("FILE_SERVER_DIR")
@@ -40,21 +41,22 @@ func saveFile(fileHeader *multipart.FileHeader) (string, error) {
 		}
 	}
 
-	// читаем папку для хранения файлов
-	files, err := dir.ReadDir(fileServerDir)
-	if err != nil {
-		return "", err
-	}
+	// генерируем UUID для создания уникального имени файла
+	id := uuid.New()
 
-	// создаем путь до файла
-	path = fmt.Sprintf("%s/%d%s",
-		fileServerDir,
-		len(files)+1,
+	// создаем имя файла
+	filename = fmt.Sprintf("%s%s",
+		id.String(),
 		filepath.Ext(fileHeader.Filename),
 	)
 
 	// создаем файл по нужному пути
-	osFile, err := os.Create(path)
+	osFile, err := os.Create(
+		fmt.Sprintf("%s/%s",
+			fileServerDir,
+			filename,
+		),
+	)
 	if err != nil {
 		return "", err
 	}
@@ -83,7 +85,7 @@ func saveFile(fileHeader *multipart.FileHeader) (string, error) {
 		return "", err
 	}
 
-	return path, nil
+	return filename, nil
 }
 
 func (s *serv) Create(ctx context.Context, dto project.Create, files []*multipart.FileHeader) error {

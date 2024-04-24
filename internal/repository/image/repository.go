@@ -10,7 +10,7 @@ const (
 
 	idColumn        = "id"
 	projectIDColumn = "project_id"
-	pathFileColumn  = "path_file"
+	filenameColumn  = "filename"
 	deletedColumn   = "deleted"
 	//createdAtColumn = "created_at"
 	updatedAtColumn = "updated_at"
