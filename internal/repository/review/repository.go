@@ -10,9 +10,10 @@ const (
 	tableName = "reviews"
 
 	idColumn        = "id"
-	authorColumn    = "author"
+	usernameColumn  = "username"
 	messageColumn   = "message"
 	ratingColumn    = "rating"
+	isPublishColumn = "is_publish"
 	deletedColumn   = "deleted"
 	createdAtColumn = "created_at"
 	updatedAtColumn = "updated_at"

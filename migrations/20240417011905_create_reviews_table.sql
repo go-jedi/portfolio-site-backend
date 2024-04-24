@@ -1,9 +1,11 @@
 -- +goose Up
 CREATE TABLE IF NOT EXISTS reviews (
     id SERIAL PRIMARY KEY,
-    author VARCHAR(255) NOT NULL,
+    author INTEGER,
+    username VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
-    rating INTEGER NOT NULL,
+    rating INTEGER NOT NULL DEFAULT 5,
+    is_publish BOOLEAN NOT NULL DEFAULT FALSE,
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()

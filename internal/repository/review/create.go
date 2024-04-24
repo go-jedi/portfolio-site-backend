@@ -14,15 +14,15 @@ import (
 func (r *repo) Create(ctx context.Context, dto review.Create) (int, error) {
 	logger.Info(
 		"(REPOSITORY REVIEW) Create...",
-		zap.String("author", dto.Author),
+		zap.String("username", dto.Username),
 		zap.String("message", dto.Message),
 		zap.Int("rating", dto.Rating),
 	)
 
 	builder := sq.Insert(tableName).
 		PlaceholderFormat(sq.Dollar).
-		Columns(authorColumn, messageColumn, ratingColumn).
-		Values(dto.Author, dto.Message, dto.Rating).
+		Columns(usernameColumn, messageColumn, ratingColumn).
+		Values(dto.Username, dto.Message, dto.Rating).
 		Suffix("RETURNING id")
 
 	query, args, err := builder.ToSql()

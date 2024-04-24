@@ -12,7 +12,7 @@ import (
 func (s *serv) Create(ctx context.Context, dto review.Create) (int, error) {
 	logger.Info(
 		"(SERVICE REVIEW) Create...",
-		zap.String("author", dto.Author),
+		zap.String("username", dto.Username),
 		zap.String("message", dto.Message),
 		zap.Int("rating", dto.Rating),
 	)

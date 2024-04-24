@@ -20,7 +20,7 @@ func (r *repo) GetByID(ctx context.Context, id int) (review.Review, error) {
 
 	builder := sq.Select(
 		idColumn,
-		authorColumn,
+		usernameColumn,
 		messageColumn,
 		ratingColumn,
 		createdAtColumn,
@@ -31,6 +31,7 @@ func (r *repo) GetByID(ctx context.Context, id int) (review.Review, error) {
 		Where(
 			sq.And{
 				sq.Eq{idColumn: id},
+				sq.Eq{isPublishColumn: true},
 				sq.Eq{deletedColumn: false},
 			},
 		)
@@ -48,7 +49,7 @@ func (r *repo) GetByID(ctx context.Context, id int) (review.Review, error) {
 	var rvw review.Review
 	err = r.db.DB().QueryRowContext(ctx, q, args...).Scan(
 		&rvw.ID,
-		&rvw.Author,
+		&rvw.Username,
 		&rvw.Message,
 		&rvw.Rating,
 		&rvw.CreatedAt,

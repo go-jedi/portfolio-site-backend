@@ -2,6 +2,7 @@ package review
 
 import (
 	"context"
+	"fmt"
 
 	"go.uber.org/zap"
 
@@ -21,7 +22,7 @@ func (r *repo) Get(ctx context.Context, page int, limit int) ([]review.Review, e
 
 	builder := sq.Select(
 		idColumn,
-		authorColumn,
+		usernameColumn,
 		messageColumn,
 		ratingColumn,
 		createdAtColumn,
@@ -29,8 +30,13 @@ func (r *repo) Get(ctx context.Context, page int, limit int) ([]review.Review, e
 	).
 		PlaceholderFormat(sq.Dollar).
 		From(tableName).
-		Where(sq.Eq{deletedColumn: false}).
-		OrderBy(idColumn).
+		Where(
+			sq.And{
+				sq.Eq{isPublishColumn: true},
+				sq.Eq{deletedColumn: false},
+			},
+		).
+		OrderBy(fmt.Sprintf("%s DESC", idColumn)).
 		Offset(uint64(limit * (page - 1))).
 		Limit(uint64(limit))
 
@@ -53,7 +59,7 @@ func (r *repo) Get(ctx context.Context, page int, limit int) ([]review.Review, e
 	for rows.Next() {
 		r := review.Review{}
 
-		err := rows.Scan(&r.ID, &r.Author, &r.Message, &r.Rating, &r.CreatedAt, &r.UpdatedAt)
+		err := rows.Scan(&r.ID, &r.Username, &r.Message, &r.Rating, &r.CreatedAt, &r.UpdatedAt)
 		if err != nil {
 			return nil, err
 		}
