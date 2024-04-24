@@ -246,6 +246,21 @@ func (mr *MockReviewRepositoryMockRecorder) GetByID(ctx, id interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockReviewRepository)(nil).GetByID), ctx, id)
 }
 
+// Publish mocks base method.
+func (m *MockReviewRepository) Publish(ctx context.Context, id int) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Publish", ctx, id)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Publish indicates an expected call of Publish.
+func (mr *MockReviewRepositoryMockRecorder) Publish(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Publish", reflect.TypeOf((*MockReviewRepository)(nil).Publish), ctx, id)
+}
+
 // MockUserRepository is a mock of UserRepository interface.
 type MockUserRepository struct {
 	ctrl     *gomock.Controller
