@@ -2,6 +2,7 @@ package project
 
 import (
 	"context"
+	"fmt"
 
 	"go.uber.org/zap"
 
@@ -41,8 +42,10 @@ func (r *repo) Get(ctx context.Context, page int, limit int) ([]project.Get, err
 		queryPaths,
 	).PlaceholderFormat(sq.Dollar).
 		From(tableName).
-		Where(sq.Eq{deletedColumn: false}).
-		OrderBy(idColumn).
+		Where(
+			sq.Eq{deletedColumn: false},
+		).
+		OrderBy(fmt.Sprintf("%s DESC", idColumn)).
 		Offset(uint64(limit * (page - 1))).
 		Limit(uint64(limit))
 
