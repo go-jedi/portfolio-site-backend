@@ -11,19 +11,19 @@ import (
 	"github.com/go-jedi/portfolio/pkg/logger"
 )
 
-func (r *repo) Publish(ctx context.Context, id int) (int, error) {
+func (r *repo) UnPublish(ctx context.Context, id int) (int, error) {
 	logger.Info(
-		"(REPOSITORY REVIEW) Publish...",
+		"(REPOSITORY REVIEW) UnPublish...",
 		zap.Int("id", id),
 	)
 
 	builder := sq.Update(tableName).
 		PlaceholderFormat(sq.Dollar).
-		Set(isPublishColumn, true).
+		Set(isPublishColumn, false).
 		Where(
 			sq.And{
 				sq.Eq{idColumn: id},
-				sq.Eq{isPublishColumn: false},
+				sq.Eq{isPublishColumn: true},
 				sq.Eq{deletedColumn: false},
 			},
 		).
@@ -35,15 +35,15 @@ func (r *repo) Publish(ctx context.Context, id int) (int, error) {
 	}
 
 	q := db.Query{
-		Name:     "review_repository.Publish",
+		Name:     "review_repository.UnPublish",
 		QueryRaw: query,
 	}
 
-	var publishedID int
-	err = r.db.DB().QueryRowContext(ctx, q, args...).Scan(&publishedID)
+	var unPublishedID int
+	err = r.db.DB().QueryRowContext(ctx, q, args...).Scan(&unPublishedID)
 	if err != nil {
 		return 0, err
 	}
 
-	return publishedID, nil
+	return unPublishedID, nil
 }

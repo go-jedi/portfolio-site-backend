@@ -247,6 +247,21 @@ func (mr *MockReviewServiceMockRecorder) Publish(ctx, id interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Publish", reflect.TypeOf((*MockReviewService)(nil).Publish), ctx, id)
 }
 
+// UnPublish mocks base method.
+func (m *MockReviewService) UnPublish(ctx context.Context, id int) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UnPublish", ctx, id)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UnPublish indicates an expected call of UnPublish.
+func (mr *MockReviewServiceMockRecorder) UnPublish(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UnPublish", reflect.TypeOf((*MockReviewService)(nil).UnPublish), ctx, id)
+}
+
 // MockUserService is a mock of UserService interface.
 type MockUserService struct {
 	ctrl     *gomock.Controller

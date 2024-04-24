@@ -7,5 +7,6 @@ func (r *Router) ReviewRoutes(router fiber.Router) {
 	router.Get("/review", r.reviewHandler.Get)
 	router.Get("/review/:id", r.reviewHandler.GetByID)
 	router.Patch("/review/publish/:id", r.reviewHandler.Publish)
+	router.Patch("/review/unpublish/:id", r.reviewHandler.UnPublish)
 	router.Delete("/review/:id", r.reviewHandler.Delete)
 }

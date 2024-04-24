@@ -261,6 +261,21 @@ func (mr *MockReviewRepositoryMockRecorder) Publish(ctx, id interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Publish", reflect.TypeOf((*MockReviewRepository)(nil).Publish), ctx, id)
 }
 
+// UnPublish mocks base method.
+func (m *MockReviewRepository) UnPublish(ctx context.Context, id int) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UnPublish", ctx, id)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UnPublish indicates an expected call of UnPublish.
+func (mr *MockReviewRepositoryMockRecorder) UnPublish(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UnPublish", reflect.TypeOf((*MockReviewRepository)(nil).UnPublish), ctx, id)
+}
+
 // MockUserRepository is a mock of UserRepository interface.
 type MockUserRepository struct {
 	ctrl     *gomock.Controller
