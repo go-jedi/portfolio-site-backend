@@ -19,4 +19,5 @@ type Create struct {
 
 type Params struct {
 	PageCount int `json:"page_count" validate:"required,min=1"`
+	Limit     int `json:"limit" validate:"required,min=1"`
 }

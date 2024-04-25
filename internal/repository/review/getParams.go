@@ -16,7 +16,7 @@ func (r *repo) Params(ctx context.Context) (review.Params, error) {
 	)
 
 	builder := sq.Select(
-		"count(*) as page_count",
+		"count(*) as page_count, 5 as limit",
 	).
 		PlaceholderFormat(sq.Dollar).
 		From(tableName).
@@ -40,6 +40,7 @@ func (r *repo) Params(ctx context.Context) (review.Params, error) {
 	var params review.Params
 	err = r.db.DB().QueryRowContext(ctx, q, args...).Scan(
 		&params.PageCount,
+		&params.Limit,
 	)
 	if err != nil {
 		return review.Params{}, err
