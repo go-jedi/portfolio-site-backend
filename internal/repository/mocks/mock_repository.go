@@ -96,6 +96,21 @@ func (mr *MockProjectRepositoryMockRecorder) GetByID(ctx, id interface{}) *gomoc
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockProjectRepository)(nil).GetByID), ctx, id)
 }
 
+// Params mocks base method.
+func (m *MockProjectRepository) Params(ctx context.Context) (project.Params, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Params", ctx)
+	ret0, _ := ret[0].(project.Params)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Params indicates an expected call of Params.
+func (mr *MockProjectRepositoryMockRecorder) Params(ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Params", reflect.TypeOf((*MockProjectRepository)(nil).Params), ctx)
+}
+
 // Update mocks base method.
 func (m *MockProjectRepository) Update(ctx context.Context, dto project.Update) (int, error) {
 	m.ctrl.T.Helper()

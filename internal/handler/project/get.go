@@ -42,7 +42,7 @@ func (h *Handler) Get(c fiber.Ctx) error {
 		})
 	}
 
-	result, err := h.projectService.Get(c.UserContext(), page, limit)
+	result, params, err := h.projectService.Get(c.UserContext(), page, limit)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": err.Error(),
@@ -53,11 +53,13 @@ func (h *Handler) Get(c fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"message": "успешное получение проектов",
 			"result":  []project.Get{},
+			"params":  project.Params{},
 		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "успешное получение проектов",
 		"result":  result,
+		"params":  params,
 	})
 }

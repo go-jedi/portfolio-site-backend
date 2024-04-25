@@ -9,17 +9,22 @@ import (
 	"github.com/go-jedi/portfolio/pkg/logger"
 )
 
-func (s *serv) Get(ctx context.Context, page int, limit int) ([]project.Get, error) {
+func (s *serv) Get(ctx context.Context, page int, limit int) ([]project.Get, project.Params, error) {
 	logger.Info(
 		"(SERVICE PROJECT) Get...",
 		zap.Int("page", page),
 		zap.Int("limit", limit),
 	)
 
-	result, err := s.projectRepository.Get(ctx, page, limit)
+	params, err := s.projectRepository.Params(ctx)
 	if err != nil {
-		return nil, err
+		return nil, project.Params{}, err
 	}
 
-	return result, nil
+	result, err := s.projectRepository.Get(ctx, page, limit)
+	if err != nil {
+		return nil, project.Params{}, err
+	}
+
+	return result, params, nil
 }
