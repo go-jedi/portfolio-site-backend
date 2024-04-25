@@ -246,6 +246,21 @@ func (mr *MockReviewRepositoryMockRecorder) GetByID(ctx, id interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockReviewRepository)(nil).GetByID), ctx, id)
 }
 
+// Params mocks base method.
+func (m *MockReviewRepository) Params(ctx context.Context) (review.Params, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Params", ctx)
+	ret0, _ := ret[0].(review.Params)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Params indicates an expected call of Params.
+func (mr *MockReviewRepositoryMockRecorder) Params(ctx interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Params", reflect.TypeOf((*MockReviewRepository)(nil).Params), ctx)
+}
+
 // Publish mocks base method.
 func (m *MockReviewRepository) Publish(ctx context.Context, id int) (int, error) {
 	m.ctrl.T.Helper()

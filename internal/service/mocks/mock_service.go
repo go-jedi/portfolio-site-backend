@@ -203,12 +203,13 @@ func (mr *MockReviewServiceMockRecorder) Delete(ctx, id interface{}) *gomock.Cal
 }
 
 // Get mocks base method.
-func (m *MockReviewService) Get(ctx context.Context, page, limit int) ([]review.Review, error) {
+func (m *MockReviewService) Get(ctx context.Context, page, limit int) ([]review.Review, review.Params, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Get", ctx, page, limit)
 	ret0, _ := ret[0].([]review.Review)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret1, _ := ret[1].(review.Params)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
 }
 
 // Get indicates an expected call of Get.

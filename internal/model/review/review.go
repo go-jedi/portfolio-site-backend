@@ -16,3 +16,7 @@ type Create struct {
 	Message  string `json:"message" validate:"required"`
 	Rating   int    `json:"rating" validate:"required,min=0,max=5"`
 }
+
+type Params struct {
+	PageCount int `json:"page_count" validate:"required,min=1"`
+}

@@ -24,6 +24,7 @@ type ReviewRepository interface {
 	Create(ctx context.Context, dto review.Create) (int, error)
 	Get(ctx context.Context, page int, limit int) ([]review.Review, error)
 	GetByID(ctx context.Context, id int) (review.Review, error)
+	Params(ctx context.Context) (review.Params, error)
 	Publish(ctx context.Context, id int) (int, error)
 	UnPublish(ctx context.Context, id int) (int, error)
 	Delete(ctx context.Context, id int) (int, error)

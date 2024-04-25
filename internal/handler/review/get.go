@@ -42,7 +42,7 @@ func (h *Handler) Get(c fiber.Ctx) error {
 		})
 	}
 
-	result, err := h.reviewService.Get(c.UserContext(), page, limit)
+	result, params, err := h.reviewService.Get(c.UserContext(), page, limit)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": err.Error(),
@@ -59,5 +59,6 @@ func (h *Handler) Get(c fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "успешное получение отзывов",
 		"result":  result,
+		"params":  params,
 	})
 }

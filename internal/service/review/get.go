@@ -9,17 +9,22 @@ import (
 	"github.com/go-jedi/portfolio/pkg/logger"
 )
 
-func (s *serv) Get(ctx context.Context, page int, limit int) ([]review.Review, error) {
+func (s *serv) Get(ctx context.Context, page int, limit int) ([]review.Review, review.Params, error) {
 	logger.Info(
 		"(SERVICE REVIEW) Get...",
 		zap.Int("page", page),
 		zap.Int("limit", limit),
 	)
 
-	result, err := s.reviewRepository.Get(ctx, page, limit)
+	params, err := s.reviewRepository.Params(ctx)
 	if err != nil {
-		return nil, err
+		return nil, review.Params{}, err
 	}
 
-	return result, nil
+	result, err := s.reviewRepository.Get(ctx, page, limit)
+	if err != nil {
+		return nil, review.Params{}, err
+	}
+
+	return result, params, nil
 }
