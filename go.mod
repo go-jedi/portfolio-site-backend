@@ -4,10 +4,11 @@ go 1.22.2
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
-	github.com/go-jedi/platform_common v0.0.0-20240413123409-2b9d04c523d7
+	github.com/go-jedi/platform_common v0.0.0-20240419130600-145435f91fce
 	github.com/go-playground/validator/v10 v10.19.0
 	github.com/gofiber/fiber/v3 v3.0.0-beta.2
 	github.com/golang/mock v1.6.0
+	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/pkg/errors v0.9.1
@@ -24,7 +25,6 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/gofiber/utils/v2 v2.0.0-beta.4 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.14.3 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
