@@ -3,10 +3,9 @@ package user
 import (
 	"fmt"
 
+	"github.com/go-jedi/portfolio/pkg/logger"
 	"github.com/gofiber/fiber/v3"
 	"go.uber.org/zap"
-
-	"github.com/go-jedi/portfolio/pkg/logger"
 )
 
 func (h *Handler) Get(c fiber.Ctx) error {

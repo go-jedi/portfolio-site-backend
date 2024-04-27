@@ -5,9 +5,8 @@ import (
 
 	"github.com/go-jedi/portfolio/internal/handler/user"
 	"github.com/go-jedi/portfolio/internal/repository"
-	"github.com/go-jedi/portfolio/internal/service"
-
 	userRepository "github.com/go-jedi/portfolio/internal/repository/user"
+	"github.com/go-jedi/portfolio/internal/service"
 	userService "github.com/go-jedi/portfolio/internal/service/user"
 )
 

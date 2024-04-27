@@ -1,9 +1,8 @@
 package project
 
 import (
-	"github.com/go-playground/validator/v10"
-
 	"github.com/go-jedi/portfolio/internal/service"
+	"github.com/go-playground/validator/v10"
 )
 
 type Handler struct {

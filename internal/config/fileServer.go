@@ -10,6 +10,11 @@ const (
 	fileServerPrefixEnvName = "FILE_SERVER_PREFIX"
 )
 
+var (
+	ErrFileServerDirNotFound    = errors.New("file server dir not found")
+	ErrFileServerPrefixNotFound = errors.New("file server prefix not found")
+)
+
 type FileServerConfig interface {
 	FileServerDir() string
 	FileServerPrefix() string
@@ -23,12 +28,12 @@ type fileServerConfig struct {
 func NewFileServerConfig() (FileServerConfig, error) {
 	fileServerDir := os.Getenv(fileServerDirEnvName)
 	if len(fileServerDir) == 0 {
-		return nil, errors.New("file server dir not found")
+		return nil, ErrFileServerDirNotFound
 	}
 
 	fileServerPrefix := os.Getenv(fileServerPrefixEnvName)
 	if len(fileServerPrefix) == 0 {
-		return nil, errors.New("file server prefix not found")
+		return nil, ErrFileServerPrefixNotFound
 	}
 
 	return &fileServerConfig{

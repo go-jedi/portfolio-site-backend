@@ -4,20 +4,10 @@ import (
 	"context"
 
 	"github.com/go-jedi/platform_common/pkg/db"
-	"go.uber.org/zap"
-
 	"github.com/go-jedi/portfolio/internal/repository"
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"go.uber.org/zap"
 )
-
-//const (
-//	tableName = "users"
-//
-//	idColumn        = "id"
-//	nameColumn      = "name"
-//	createdAtColumn = "created_at"
-//	updatedAtColumn = "updated_at"
-//)
 
 type repo struct {
 	db db.Client

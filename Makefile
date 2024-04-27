@@ -15,7 +15,7 @@ run-air:
 	air --build.cmd "go build -o .bin/air cmd/rest_server/main.go" --build.bin "./.bin/air"
 
 lint:
-	GOBIN=$(LOCAL_BIN) golangci-lint run ./... --config .golangci.pipeline.yaml
+	GOBIN=$(LOCAL_BIN) golangci-lint run ./... --config .golangci.yaml
 
 local-migration-status:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} status -v

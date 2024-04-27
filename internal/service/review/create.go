@@ -3,10 +3,9 @@ package review
 import (
 	"context"
 
-	"go.uber.org/zap"
-
 	"github.com/go-jedi/portfolio/internal/model/review"
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"go.uber.org/zap"
 )
 
 func (s *serv) Create(ctx context.Context, dto review.Create) (int, error) {

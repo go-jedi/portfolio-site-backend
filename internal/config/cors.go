@@ -10,8 +10,16 @@ const (
 	corsOriginEnvName     = "CORS_ORIGIN"
 	corsMethodEnvName     = "CORS_METHOD"
 	corsHeaderEnvName     = "CORS_HEADER"
-	corsCredentialEnvName = "CORS_CREDENTIAL"
+	corsCredentialEnvName = "CORS_CREDENTIAL" //nolint:gosec
 	corsMaxAgeEnvName     = "CORS_MAX_AGE"
+)
+
+var (
+	ErrCorsOriginNotFound     = errors.New("cors origin not found")
+	ErrCorsMethodNotFound     = errors.New("cors method not found")
+	ErrCorsHeaderNotFound     = errors.New("cors header not found")
+	ErrCorsCredentialNotFound = errors.New("cors credential not found")
+	ErrCorsMaxAgeNotFound     = errors.New("cors max age not found")
 )
 
 type CORSConfig interface {
@@ -33,22 +41,22 @@ type corsConfig struct {
 func NewCORSConfig() (CORSConfig, error) {
 	origin := os.Getenv(corsOriginEnvName)
 	if len(origin) == 0 {
-		return nil, errors.New("cors origin not found")
+		return nil, ErrCorsOriginNotFound
 	}
 
 	method := os.Getenv(corsMethodEnvName)
 	if len(origin) == 0 {
-		return nil, errors.New("cors method not found")
+		return nil, ErrCorsMethodNotFound
 	}
 
 	header := os.Getenv(corsHeaderEnvName)
 	if len(origin) == 0 {
-		return nil, errors.New("cors header not found")
+		return nil, ErrCorsHeaderNotFound
 	}
 
 	credential := os.Getenv(corsCredentialEnvName)
 	if len(credential) == 0 {
-		return nil, errors.New("cors credential not found")
+		return nil, ErrCorsCredentialNotFound
 	}
 
 	credentialBool, err := strconv.ParseBool(credential)
@@ -58,7 +66,7 @@ func NewCORSConfig() (CORSConfig, error) {
 
 	maxAge := os.Getenv(corsMaxAgeEnvName)
 	if len(maxAge) == 0 {
-		return nil, errors.New("cors max age not found")
+		return nil, ErrCorsMaxAgeNotFound
 	}
 
 	maxAgeInt, err := strconv.Atoi(maxAge)

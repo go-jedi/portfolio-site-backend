@@ -3,10 +3,9 @@ package review
 import (
 	"strconv"
 
-	"github.com/gofiber/fiber/v3"
-
 	"github.com/go-jedi/portfolio/internal/model/review"
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"github.com/gofiber/fiber/v3"
 )
 
 func (h *Handler) Get(c fiber.Ctx) error {

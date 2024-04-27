@@ -1,12 +1,11 @@
 package router
 
 import (
-	"github.com/gofiber/fiber/v3"
-
 	"github.com/go-jedi/portfolio/internal/handler/image"
 	"github.com/go-jedi/portfolio/internal/handler/project"
 	"github.com/go-jedi/portfolio/internal/handler/review"
 	"github.com/go-jedi/portfolio/internal/handler/user"
+	"github.com/gofiber/fiber/v3"
 )
 
 type Router struct {

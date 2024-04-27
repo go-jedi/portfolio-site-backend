@@ -3,10 +3,9 @@ package project
 import (
 	"context"
 
-	"go.uber.org/zap"
-
 	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"go.uber.org/zap"
 )
 
 func (s *serv) Update(ctx context.Context, dto project.Update) (int, error) {

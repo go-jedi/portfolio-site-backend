@@ -6,12 +6,10 @@ import (
 	"testing"
 
 	"github.com/brianvoe/gofakeit/v7"
+	"github.com/go-jedi/portfolio/internal/repository"
+	repoMocks "github.com/go-jedi/portfolio/internal/repository/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
-
-	"github.com/go-jedi/portfolio/internal/repository"
-
-	repoMocks "github.com/go-jedi/portfolio/internal/repository/mocks"
 )
 
 func TestCreate(t *testing.T) {

@@ -3,13 +3,11 @@ package review
 import (
 	"context"
 
-	"go.uber.org/zap"
-
 	sq "github.com/Masterminds/squirrel"
 	"github.com/go-jedi/platform_common/pkg/db"
-
 	"github.com/go-jedi/portfolio/internal/model/review"
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"go.uber.org/zap"
 )
 
 func (r *repo) GetByID(ctx context.Context, id int) (review.Review, error) {

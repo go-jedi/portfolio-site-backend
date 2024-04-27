@@ -9,6 +9,8 @@ const (
 	dsnEnvName = "PG_DSN"
 )
 
+var ErrPgDsnNotFound = errors.New("pg dsn not found")
+
 type PGConfig interface {
 	DSN() string
 }
@@ -20,7 +22,7 @@ type pgConfig struct {
 func NewPGConfig() (PGConfig, error) {
 	dsn := os.Getenv(dsnEnvName)
 	if len(dsn) == 0 {
-		return nil, errors.New("pg dsn not found")
+		return nil, ErrPgDsnNotFound
 	}
 
 	return &pgConfig{

@@ -1,8 +1,9 @@
 package project
 
 import (
-	"github.com/go-jedi/platform_common/pkg/db"
+	"errors"
 
+	"github.com/go-jedi/platform_common/pkg/db"
 	"github.com/go-jedi/portfolio/internal/repository"
 	"github.com/go-jedi/portfolio/internal/service"
 )
@@ -24,3 +25,5 @@ func NewService(
 		txManager:         txManager,
 	}
 }
+
+var ErrFileServerDirEmpty = errors.New("file server dir is empty")

@@ -42,11 +42,15 @@ func WithOptions(opts ...zap.Option) *zap.Logger {
 func GetCore(level zap.AtomicLevel) zapcore.Core {
 	stdout := zapcore.AddSync(os.Stdout)
 
+	const maxSize = 10
+	const maxBackups = 3
+	const maxAge = 7
+
 	file := zapcore.AddSync(&lumberjack.Logger{
 		Filename:   "logs/app.log",
-		MaxSize:    10, // megabytes
-		MaxBackups: 3,
-		MaxAge:     7, // days
+		MaxSize:    maxSize, // megabytes
+		MaxBackups: maxBackups,
+		MaxAge:     maxAge, // days
 	})
 
 	productionCfg := zap.NewProductionEncoderConfig()

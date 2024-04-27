@@ -5,10 +5,9 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/go-jedi/platform_common/pkg/db"
-	"go.uber.org/zap"
-
 	"github.com/go-jedi/portfolio/internal/model/review"
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"go.uber.org/zap"
 )
 
 func (r *repo) Create(ctx context.Context, dto review.Create) (int, error) {

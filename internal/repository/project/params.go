@@ -5,7 +5,6 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/go-jedi/platform_common/pkg/db"
-
 	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/pkg/logger"
 )

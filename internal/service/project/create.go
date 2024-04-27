@@ -2,19 +2,17 @@ package project
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
 	"os"
 	"path/filepath"
 
-	"github.com/google/uuid"
-	"go.uber.org/zap"
-
 	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/pkg/logger"
 	"github.com/go-jedi/portfolio/pkg/utils/dir"
+	"github.com/google/uuid"
+	"go.uber.org/zap"
 )
 
 func saveFile(fileHeader *multipart.FileHeader) (string, error) {
@@ -23,7 +21,7 @@ func saveFile(fileHeader *multipart.FileHeader) (string, error) {
 	// читаем путь до папки хранения файлов
 	fileServerDir := os.Getenv("FILE_SERVER_DIR")
 	if fileServerDir == "" {
-		return "", errors.New("file server dir is empty")
+		return "", ErrFileServerDirEmpty
 	}
 
 	// открываем файл переданный

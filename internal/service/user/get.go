@@ -3,9 +3,8 @@ package user
 import (
 	"context"
 
-	"go.uber.org/zap"
-
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"go.uber.org/zap"
 )
 
 func (s *serv) Get(ctx context.Context, id int64) (string, error) {

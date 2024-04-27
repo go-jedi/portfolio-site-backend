@@ -12,7 +12,6 @@ const (
 	projectIDColumn = "project_id"
 	filenameColumn  = "filename"
 	deletedColumn   = "deleted"
-	//createdAtColumn = "created_at"
 	updatedAtColumn = "updated_at"
 )
 

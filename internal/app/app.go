@@ -6,12 +6,11 @@ import (
 	"strings"
 
 	"github.com/go-jedi/platform_common/pkg/closer"
-	"github.com/gofiber/fiber/v3"
-	"github.com/gofiber/fiber/v3/middleware/cors"
-
 	"github.com/go-jedi/portfolio/internal/config"
 	"github.com/go-jedi/portfolio/internal/router"
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 )
 
 type App struct {

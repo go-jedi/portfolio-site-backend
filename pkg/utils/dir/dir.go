@@ -2,7 +2,7 @@ package dir
 
 import "os"
 
-// CheckExistDir проверка существует ли папка или нет
+// CheckExistDir проверка существует ли папка или нет.
 func CheckExistDir(path string) bool {
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
 		return true
@@ -20,7 +20,7 @@ func ReadDir(path string) ([]os.DirEntry, error) {
 	return files, nil
 }
 
-// CreateDir создать директорию
+// CreateDir создать директорию.
 func CreateDir(path string) error {
 	err := os.Mkdir(path, os.ModePerm)
 	if err != nil {
@@ -30,7 +30,7 @@ func CreateDir(path string) error {
 	return nil
 }
 
-// CreateDirAll создать иерархию директорий (a/b/c/d)
+// CreateDirAll создать иерархию директорий (a/b/c/d).
 func CreateDirAll(path string) error {
 	err := os.MkdirAll(path, os.ModePerm)
 	if err != nil {

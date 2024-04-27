@@ -5,9 +5,8 @@ import (
 
 	"github.com/go-jedi/portfolio/internal/handler/review"
 	"github.com/go-jedi/portfolio/internal/repository"
-	"github.com/go-jedi/portfolio/internal/service"
-
 	reviewRepository "github.com/go-jedi/portfolio/internal/repository/review"
+	"github.com/go-jedi/portfolio/internal/service"
 	reviewService "github.com/go-jedi/portfolio/internal/service/review"
 )
 

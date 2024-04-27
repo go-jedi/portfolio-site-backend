@@ -4,20 +4,18 @@ import (
 	"context"
 	"log"
 
-	"github.com/go-jedi/portfolio/internal/handler/image"
-
 	"github.com/go-jedi/platform_common/pkg/closer"
 	"github.com/go-jedi/platform_common/pkg/db"
 	"github.com/go-jedi/platform_common/pkg/db/pg"
 	"github.com/go-jedi/platform_common/pkg/db/transaction"
-	"github.com/go-playground/validator/v10"
-
 	"github.com/go-jedi/portfolio/internal/config"
+	"github.com/go-jedi/portfolio/internal/handler/image"
 	"github.com/go-jedi/portfolio/internal/handler/project"
 	"github.com/go-jedi/portfolio/internal/handler/review"
 	"github.com/go-jedi/portfolio/internal/handler/user"
 	"github.com/go-jedi/portfolio/internal/repository"
 	"github.com/go-jedi/portfolio/internal/service"
+	"github.com/go-playground/validator/v10"
 )
 
 type serverProvider struct {

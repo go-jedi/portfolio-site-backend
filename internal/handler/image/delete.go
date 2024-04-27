@@ -3,9 +3,8 @@ package image
 import (
 	"strconv"
 
-	"github.com/gofiber/fiber/v3"
-
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"github.com/gofiber/fiber/v3"
 )
 
 func (h *Handler) Delete(c fiber.Ctx) error {

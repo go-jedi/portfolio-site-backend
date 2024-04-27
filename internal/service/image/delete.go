@@ -3,9 +3,8 @@ package image
 import (
 	"context"
 
-	"go.uber.org/zap"
-
 	"github.com/go-jedi/portfolio/pkg/logger"
+	"go.uber.org/zap"
 )
 
 func (s *serv) Delete(ctx context.Context, id int) (int, error) {

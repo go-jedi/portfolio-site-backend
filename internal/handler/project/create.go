@@ -3,11 +3,10 @@ package project
 import (
 	"path/filepath"
 
-	"github.com/gofiber/fiber/v3"
-
 	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/pkg/logger"
 	"github.com/go-jedi/portfolio/pkg/utils/contains"
+	"github.com/gofiber/fiber/v3"
 )
 
 func (h *Handler) Create(c fiber.Ctx) error {
