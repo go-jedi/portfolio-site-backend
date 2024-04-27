@@ -19,6 +19,7 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
+	github.com/brianvoe/gofakeit/v7 v7.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/georgysavva/scany v1.2.2 // indirect
