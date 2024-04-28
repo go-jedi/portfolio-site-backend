@@ -7,16 +7,16 @@ import (
 
 	"github.com/brianvoe/gofakeit/v7"
 	"github.com/go-jedi/portfolio/internal/model/project"
-	"github.com/go-jedi/portfolio/internal/repository"
-	repoMocks "github.com/go-jedi/portfolio/internal/repository/mocks"
+	"github.com/go-jedi/portfolio/internal/service"
+	servMocks "github.com/go-jedi/portfolio/internal/service/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )
 
 func TestUpdate(t *testing.T) {
 	t.Parallel()
-	//	Arrange
-	type projectRepositoryMockFunc func(mc *gomock.Controller) repository.ProjectRepository
+	// Arrange
+	type projectServiceMockFunc func(mc *gomock.Controller) service.ProjectService
 
 	mc := gomock.NewController(t)
 	defer mc.Finish()
@@ -43,14 +43,14 @@ func TestUpdate(t *testing.T) {
 			Technology:  gofakeit.ProductCategory(),
 		}
 
-		repoErr = fmt.Errorf("repository error")
+		servErr = fmt.Errorf("service error")
 	)
 
 	tests := []struct {
-		name                      string
-		input                     input
-		expected                  expected
-		projectRepositoryMockFunc projectRepositoryMockFunc
+		name                   string
+		input                  input
+		expected               expected
+		projectServiceMockFunc projectServiceMockFunc
 	}{
 		{
 			name: "OK (Update)",
@@ -62,25 +62,25 @@ func TestUpdate(t *testing.T) {
 				id:  id,
 				err: nil,
 			},
-			projectRepositoryMockFunc: func(mc *gomock.Controller) repository.ProjectRepository {
-				mock := repoMocks.NewMockProjectRepository(mc)
+			projectServiceMockFunc: func(mc *gomock.Controller) service.ProjectService {
+				mock := servMocks.NewMockProjectService(mc)
 				mock.EXPECT().Update(ctx, dto).Return(id, nil)
 				return mock
 			},
 		},
 		{
-			name: "Repository error case",
+			name: "Service error case",
 			input: input{
 				ctx: ctx,
 				dto: dto,
 			},
 			expected: expected{
 				id:  0,
-				err: repoErr,
+				err: servErr,
 			},
-			projectRepositoryMockFunc: func(mc *gomock.Controller) repository.ProjectRepository {
-				mock := repoMocks.NewMockProjectRepository(mc)
-				mock.EXPECT().Update(ctx, dto).Return(0, repoErr)
+			projectServiceMockFunc: func(mc *gomock.Controller) service.ProjectService {
+				mock := servMocks.NewMockProjectService(mc)
+				mock.EXPECT().Update(ctx, dto).Return(0, servErr)
 				return mock
 			},
 		},
@@ -90,11 +90,11 @@ func TestUpdate(t *testing.T) {
 		test := test
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
-			projectRepositoryMock := test.projectRepositoryMockFunc(mc)
-			result, err := projectRepositoryMock.Update(test.input.ctx, test.input.dto)
+			projectServiceMock := test.projectServiceMockFunc(mc)
+			result, err := projectServiceMock.Update(test.input.ctx, test.input.dto)
 
 			const caseOk = "OK (Update)"
-			const caseError = "Repository error case"
+			const caseError = "Service error case"
 
 			switch test.name {
 			case caseOk:
