@@ -27,7 +27,7 @@ func TestCreate(t *testing.T) {
 	}
 
 	var (
-		ctx = context.Background()
+		ctx = context.TODO()
 
 		id        = gofakeit.IntRange(1, 10000)
 		filenames = []string{"test.jpg", "test.jpeg", "test.png", "test.svg"}

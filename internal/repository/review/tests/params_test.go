@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/brianvoe/gofakeit/v7"
-	"github.com/go-jedi/portfolio/internal/model/project"
+	"github.com/go-jedi/portfolio/internal/model/review"
 	"github.com/go-jedi/portfolio/internal/repository"
 	repoMocks "github.com/go-jedi/portfolio/internal/repository/mocks"
 	"github.com/golang/mock/gomock"
@@ -16,7 +16,7 @@ import (
 func TestParams(t *testing.T) {
 	t.Parallel()
 	//	Arrange
-	type projectRepositoryMockFunc func(mc *gomock.Controller) repository.ProjectRepository
+	type reviewRepositoryMockFunc func(mc *gomock.Controller) repository.ReviewRepository
 
 	mc := gomock.NewController(t)
 	defer mc.Finish()
@@ -26,14 +26,14 @@ func TestParams(t *testing.T) {
 	}
 
 	type expected struct {
-		params project.Params
+		params review.Params
 		err    error
 	}
 
 	var (
 		ctx = context.TODO()
 
-		params = project.Params{
+		params = review.Params{
 			PageCount: gofakeit.IntRange(1, 1000),
 			Limit:     gofakeit.IntRange(1, 20),
 		}
@@ -42,10 +42,10 @@ func TestParams(t *testing.T) {
 	)
 
 	tests := []struct {
-		name                      string
-		input                     input
-		expected                  expected
-		projectRepositoryMockFunc projectRepositoryMockFunc
+		name                     string
+		input                    input
+		expected                 expected
+		reviewRepositoryMockFunc reviewRepositoryMockFunc
 	}{
 		{
 			name: "OK (Params)",
@@ -56,8 +56,8 @@ func TestParams(t *testing.T) {
 				params: params,
 				err:    nil,
 			},
-			projectRepositoryMockFunc: func(mc *gomock.Controller) repository.ProjectRepository {
-				mock := repoMocks.NewMockProjectRepository(mc)
+			reviewRepositoryMockFunc: func(mc *gomock.Controller) repository.ReviewRepository {
+				mock := repoMocks.NewMockReviewRepository(mc)
 				mock.EXPECT().Params(ctx).Return(params, nil)
 				return mock
 			},
@@ -68,12 +68,12 @@ func TestParams(t *testing.T) {
 				ctx: ctx,
 			},
 			expected: expected{
-				params: project.Params{},
+				params: review.Params{},
 				err:    repoErr,
 			},
-			projectRepositoryMockFunc: func(mc *gomock.Controller) repository.ProjectRepository {
-				mock := repoMocks.NewMockProjectRepository(mc)
-				mock.EXPECT().Params(ctx).Return(project.Params{}, repoErr)
+			reviewRepositoryMockFunc: func(mc *gomock.Controller) repository.ReviewRepository {
+				mock := repoMocks.NewMockReviewRepository(mc)
+				mock.EXPECT().Params(ctx).Return(review.Params{}, repoErr)
 				return mock
 			},
 		},
@@ -83,8 +83,8 @@ func TestParams(t *testing.T) {
 		test := test
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
-			projectRepositoryMock := test.projectRepositoryMockFunc(mc)
-			result, err := projectRepositoryMock.Params(test.input.ctx)
+			reviewRepositoryMock := test.reviewRepositoryMockFunc(mc)
+			result, err := reviewRepositoryMock.Params(test.input.ctx)
 
 			const caseOk = "OK (Params)"
 			const caseError = "Repository error case"

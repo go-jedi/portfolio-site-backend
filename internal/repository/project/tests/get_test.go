@@ -35,7 +35,7 @@ func TestGet(t *testing.T) {
 	}
 
 	var (
-		ctx = context.Background()
+		ctx = context.TODO()
 
 		page  = gofakeit.IntRange(1, 100)
 		limit = gofakeit.IntRange(1, 10)

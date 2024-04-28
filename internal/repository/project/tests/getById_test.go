@@ -34,7 +34,7 @@ func TestGetByID(t *testing.T) {
 	}
 
 	var (
-		ctx = context.Background()
+		ctx = context.TODO()
 
 		id = gofakeit.IntRange(1, 10000)
 
