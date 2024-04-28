@@ -15,7 +15,7 @@ import (
 func TestDelete(t *testing.T) {
 	t.Parallel()
 	//	Arrange
-	type imageRepositoryMockFunc func(mc *gomock.Controller) repository.ImageRepository
+	type projectRepositoryMockFunc func(mc *gomock.Controller) repository.ProjectRepository
 
 	mc := gomock.NewController(t)
 	defer mc.Finish()
@@ -39,10 +39,10 @@ func TestDelete(t *testing.T) {
 	)
 
 	tests := []struct {
-		name                    string
-		input                   input
-		expected                expected
-		imageRepositoryMockFunc imageRepositoryMockFunc
+		name                      string
+		input                     input
+		expected                  expected
+		projectRepositoryMockFunc projectRepositoryMockFunc
 	}{
 		{
 			name: "OK (Delete)",
@@ -54,8 +54,8 @@ func TestDelete(t *testing.T) {
 				id:  id,
 				err: nil,
 			},
-			imageRepositoryMockFunc: func(mc *gomock.Controller) repository.ImageRepository {
-				mock := repoMocks.NewMockImageRepository(mc)
+			projectRepositoryMockFunc: func(mc *gomock.Controller) repository.ProjectRepository {
+				mock := repoMocks.NewMockProjectRepository(mc)
 				mock.EXPECT().Delete(ctx, id).Return(id, nil)
 				return mock
 			},
@@ -70,8 +70,8 @@ func TestDelete(t *testing.T) {
 				id:  0,
 				err: repoErr,
 			},
-			imageRepositoryMockFunc: func(mc *gomock.Controller) repository.ImageRepository {
-				mock := repoMocks.NewMockImageRepository(mc)
+			projectRepositoryMockFunc: func(mc *gomock.Controller) repository.ProjectRepository {
+				mock := repoMocks.NewMockProjectRepository(mc)
 				mock.EXPECT().Delete(ctx, id).Return(0, repoErr)
 				return mock
 			},
@@ -82,8 +82,8 @@ func TestDelete(t *testing.T) {
 		test := test
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
-			imageRepositoryMock := test.imageRepositoryMockFunc(mc)
-			result, err := imageRepositoryMock.Delete(test.input.ctx, test.input.id)
+			projectRepositoryMock := test.projectRepositoryMockFunc(mc)
+			result, err := projectRepositoryMock.Delete(test.input.ctx, test.input.id)
 
 			const caseOk = "OK (Delete)"
 			const caseError = "Repository error case"

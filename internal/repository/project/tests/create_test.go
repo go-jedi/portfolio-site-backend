@@ -6,23 +6,24 @@ import (
 	"testing"
 
 	"github.com/brianvoe/gofakeit/v7"
+	"github.com/go-jedi/portfolio/internal/model/project"
 	"github.com/go-jedi/portfolio/internal/repository"
 	repoMocks "github.com/go-jedi/portfolio/internal/repository/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )
 
-func TestDelete(t *testing.T) {
+func TestCreate(t *testing.T) {
 	t.Parallel()
-	//	Arrange
-	type imageRepositoryMockFunc func(mc *gomock.Controller) repository.ImageRepository
+	// Arrange
+	type projectRepositoryMockFunc func(mc *gomock.Controller) repository.ProjectRepository
 
 	mc := gomock.NewController(t)
 	defer mc.Finish()
 
 	type input struct {
 		ctx context.Context
-		id  int
+		dto project.Create
 	}
 
 	type expected struct {
@@ -33,30 +34,39 @@ func TestDelete(t *testing.T) {
 	var (
 		ctx = context.Background()
 
-		id = gofakeit.IntRange(1, 10000)
+		title       = gofakeit.JobTitle()
+		description = gofakeit.ProductDescription()
+		technology  = gofakeit.ProductCategory()
 
+		repoRes = gofakeit.IntRange(1, 10000)
 		repoErr = fmt.Errorf("repository error")
+
+		dto = project.Create{
+			Title:       title,
+			Description: description,
+			Technology:  technology,
+		}
 	)
 
 	tests := []struct {
-		name                    string
-		input                   input
-		expected                expected
-		imageRepositoryMockFunc imageRepositoryMockFunc
+		name                      string
+		input                     input
+		expected                  expected
+		projectRepositoryMockFunc projectRepositoryMockFunc
 	}{
 		{
-			name: "OK (Delete)",
+			name: "OK (Create)",
 			input: input{
 				ctx: ctx,
-				id:  id,
+				dto: dto,
 			},
 			expected: expected{
-				id:  id,
+				id:  repoRes,
 				err: nil,
 			},
-			imageRepositoryMockFunc: func(mc *gomock.Controller) repository.ImageRepository {
-				mock := repoMocks.NewMockImageRepository(mc)
-				mock.EXPECT().Delete(ctx, id).Return(id, nil)
+			projectRepositoryMockFunc: func(mc *gomock.Controller) repository.ProjectRepository {
+				mock := repoMocks.NewMockProjectRepository(mc)
+				mock.EXPECT().Create(ctx, dto).Return(repoRes, nil)
 				return mock
 			},
 		},
@@ -64,15 +74,15 @@ func TestDelete(t *testing.T) {
 			name: "Repository error case",
 			input: input{
 				ctx: ctx,
-				id:  id,
+				dto: dto,
 			},
 			expected: expected{
 				id:  0,
 				err: repoErr,
 			},
-			imageRepositoryMockFunc: func(mc *gomock.Controller) repository.ImageRepository {
-				mock := repoMocks.NewMockImageRepository(mc)
-				mock.EXPECT().Delete(ctx, id).Return(0, repoErr)
+			projectRepositoryMockFunc: func(mc *gomock.Controller) repository.ProjectRepository {
+				mock := repoMocks.NewMockProjectRepository(mc)
+				mock.EXPECT().Create(ctx, dto).Return(0, repoErr)
 				return mock
 			},
 		},
@@ -82,10 +92,10 @@ func TestDelete(t *testing.T) {
 		test := test
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
-			imageRepositoryMock := test.imageRepositoryMockFunc(mc)
-			result, err := imageRepositoryMock.Delete(test.input.ctx, test.input.id)
+			projectRepositoryMock := test.projectRepositoryMockFunc(mc)
+			result, err := projectRepositoryMock.Create(test.input.ctx, test.input.dto)
 
-			const caseOk = "OK (Delete)"
+			const caseOk = "OK (Create)"
 			const caseError = "Repository error case"
 
 			switch test.name {
