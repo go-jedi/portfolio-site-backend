@@ -4,6 +4,7 @@ go 1.22.2
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
+	github.com/brianvoe/gofakeit/v7 v7.0.2
 	github.com/go-jedi/platform_common v0.0.0-20240419130600-145435f91fce
 	github.com/go-playground/validator/v10 v10.19.0
 	github.com/gofiber/fiber/v3 v3.0.0-beta.2
@@ -19,7 +20,6 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
-	github.com/brianvoe/gofakeit/v7 v7.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/georgysavva/scany v1.2.2 // indirect
