@@ -23,6 +23,7 @@ type serverProvider struct {
 	pgConfig         config.PGConfig
 	fileServerConfig config.FileServerConfig
 	corsConfig       config.CORSConfig
+	certConfig       config.CERTConfig
 	restConfig       config.RESTConfig
 
 	dbClient  db.Client
@@ -101,6 +102,19 @@ func (s *serverProvider) CORSConfig() config.CORSConfig {
 	}
 
 	return s.corsConfig
+}
+
+func (s *serverProvider) CERTConfig() config.CERTConfig {
+	if s.certConfig == nil {
+		cfg, err := config.NewCERTConfig()
+		if err != nil {
+			log.Fatalf("failed to get cert config: %s", err.Error())
+		}
+
+		s.certConfig = cfg
+	}
+
+	return s.certConfig
 }
 
 func (s *serverProvider) RESTConfig() config.RESTConfig {

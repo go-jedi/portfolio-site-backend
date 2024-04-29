@@ -133,13 +133,13 @@ func (a *App) initCors(_ context.Context) error {
 }
 
 func (a *App) initRouter(ctx context.Context) error {
-	// инициализация Handlers
+	// Инициализация Handlers
 	projectHandler := a.serverProvider.ProjectHandler(ctx)
 	imageHandler := a.serverProvider.ImageHandler(ctx)
 	reviewHandler := a.serverProvider.ReviewHandler(ctx)
 	userHandler := a.serverProvider.UserHandler(ctx)
 
-	// инициализация роутов
+	// Инициализация роутов
 	r := router.NewRouter(
 		a.restServer,
 		projectHandler,
@@ -156,13 +156,22 @@ func (a *App) initRouter(ctx context.Context) error {
 }
 
 func (a *App) runRESTServer() error {
+	// Инициализация сертификатов
+	certFile := a.serverProvider.CERTConfig().CertFile()
+	certKeyFile := a.serverProvider.CERTConfig().CertKeyFile()
+
 	logger.Info(fmt.Sprintf("REST server is running on %s", a.serverProvider.RESTConfig().Address()))
 
 	// запуск сервера
 	err := a.restServer.Listen(
 		fmt.Sprintf(
 			":%s",
-			strings.Split(a.serverProvider.RESTConfig().Address(), ":")[1]),
+			strings.Split(a.serverProvider.RESTConfig().Address(), ":")[1],
+		),
+		fiber.ListenConfig{
+			CertFile:    certFile,
+			CertKeyFile: certKeyFile,
+		},
 	)
 	if err != nil {
 		return err
