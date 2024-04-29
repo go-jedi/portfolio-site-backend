@@ -1,0 +1,15 @@
+[Unit]
+Description=Rest Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/go-jedi/portfolio-site/backend
+ExecStart=/home/go-jedi/portfolio-site/backend/.bin/rest_server
+Restart=always
+RestartSec=4
+StandardOutput=inherit
+EnvironmentFile=/home/go-jedi/portfolio-site/backend/.env
+
+[Install]
+WantedBy=multi-user.target
