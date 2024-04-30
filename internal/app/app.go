@@ -3,7 +3,6 @@ package app
 import (
 	"context"
 	"fmt"
-	"strings"
 
 	"github.com/go-jedi/platform_common/pkg/closer"
 	"github.com/go-jedi/portfolio/internal/config"
@@ -156,22 +155,31 @@ func (a *App) initRouter(ctx context.Context) error {
 }
 
 func (a *App) runRESTServer() error {
-	// Инициализация сертификатов
-	certFile := a.serverProvider.CERTConfig().CertFile()
-	certKeyFile := a.serverProvider.CERTConfig().CertKeyFile()
-
 	logger.Info(fmt.Sprintf("REST server is running on %s", a.serverProvider.RESTConfig().Address()))
 
-	// запуск сервера
+	if a.serverProvider.CERTConfig().IsTLS() {
+		// Инициализация сертификатов
+		certFile := a.serverProvider.CERTConfig().CertFile()
+		certKeyFile := a.serverProvider.CERTConfig().CertKeyFile()
+
+		// Запуск сервера с TLS
+		err := a.restServer.Listen(
+			a.serverProvider.RESTConfig().Address(),
+			fiber.ListenConfig{
+				CertFile:    certFile,
+				CertKeyFile: certKeyFile,
+			},
+		)
+		if err != nil {
+			return err
+		}
+
+		return nil
+	}
+
+	// Запуск сервера без TLS
 	err := a.restServer.Listen(
-		fmt.Sprintf(
-			":%s",
-			strings.Split(a.serverProvider.RESTConfig().Address(), ":")[1],
-		),
-		fiber.ListenConfig{
-			CertFile:    certFile,
-			CertKeyFile: certKeyFile,
-		},
+		a.serverProvider.RESTConfig().Address(),
 	)
 	if err != nil {
 		return err
