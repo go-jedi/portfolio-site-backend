@@ -14,6 +14,8 @@ const (
 
 type RESTConfig interface {
 	Address() string
+	Host() string
+	Port() string
 }
 
 type restConfig struct {
@@ -40,4 +42,12 @@ func NewRESTConfig() (RESTConfig, error) {
 
 func (cfg *restConfig) Address() string {
 	return net.JoinHostPort(cfg.host, cfg.port)
+}
+
+func (cfg *restConfig) Host() string {
+	return cfg.host
+}
+
+func (cfg *restConfig) Port() string {
+	return cfg.port
 }

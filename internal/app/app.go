@@ -179,7 +179,7 @@ func (a *App) runRESTServer() error {
 
 	// Запуск сервера без TLS
 	err := a.restServer.Listen(
-		a.serverProvider.RESTConfig().Address(),
+		fmt.Sprintf(":%s", a.serverProvider.RESTConfig().Port()),
 	)
 	if err != nil {
 		return err
